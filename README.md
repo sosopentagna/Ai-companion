@@ -1,2 +1,255 @@
-# Ai-companion
-An AI-powered teddy bear that listens, talks, remembers conversations, recognizes emotions through voice, and provides comforting conversations and wellness support in a safe, interactive companion.
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My AI Companion</title>
+
+  <style>
+
+    * { box-sizing: border-box; }
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+
+      background: #f5f0ff;
+
+      color: #302641;
+
+      display: flex;
+
+      justify-content: center;
+
+      min-height: 100vh;
+
+      padding: 24px 12px;
+
+    }
+
+    .app {
+
+      width: 100%;
+
+      max-width: 600px;
+
+      height: 85vh;
+
+      min-height: 420px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      background: white;
+
+      border-radius: 22px;
+
+      overflow: hidden;
+
+      box-shadow: 0 8px 35px #38245b18;
+
+    }
+
+    header {
+
+      padding: 22px;
+
+      background: #e8dcff;
+
+    }
+
+    header h1 { margin: 0 0 6px; font-size: 22px; }
+
+    header p { margin: 0; color: #685b79; font-size: 14px; }
+
+    #chat {
+
+      flex: 1;
+
+      overflow-y: auto;
+
+      padding: 18px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 12px;
+
+    }
+
+    .message {
+
+      padding: 12px 15px;
+
+      border-radius: 17px;
+
+      max-width: 85%;
+
+      line-height: 1.5;
+
+      overflow-wrap: anywhere;
+
+      white-space: pre-wrap;
+
+    }
+
+    .bot {
+
+      align-self: flex-start;
+
+      background: #f0eafa;
+
+    }
+
+    .user {
+
+      align-self: flex-end;
+
+      background: #8060b8;
+
+      color: white;
+
+    }
+
+    form {
+
+      display: flex;
+
+      gap: 8px;
+
+      padding: 14px;
+
+      border-top: 1px solid #eee7f7;
+
+    }
+
+    input {
+
+      flex: 1;
+
+      min-width: 0;
+
+      padding: 13px;
+
+      border: 1px solid #ddd1ee;
+
+      border-radius: 12px;
+
+      font-size: 16px;
+
+    }
+
+    button {
+
+      border: 0;
+
+      border-radius: 12px;
+
+      padding: 12px 17px;
+
+      background: #8060b8;
+
+      color: white;
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header>
+
+      <h1>♡ Your AI Companion</h1>
+
+      <p>A little space just for conversation.</p>
+
+    </header>
+
+    <div id="chat" aria-live="polite">
+
+      <div class="message bot">
+
+        Hi! I'm your future AI companion. ✨
+
+        I'm happy to chat with you. What's on your mind?
+
+      </div>
+
+    </div>
+
+    <form id="chat-form">
+
+      <input id="message" placeholder="Write a message..."
+
+        autocomplete="off" aria-label="Your message" required>
+
+      <button type="submit">Send</button>
+
+    </form>
+
+  </main>
+
+  <script>
+
+    const chat = document.getElementById("chat");
+
+    const form = document.getElementById("chat-form");
+
+    const input = document.getElementById("message");
+
+    form.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      addMessage(text, "user");
+
+      input.value = "";
+
+      addMessage(
+
+        "I received your message! Once we connect an AI model, " +
+
+        "I'll be able to generate real responses. ✨",
+
+        "bot"
+
+      );
+
+    });
+
+    function addMessage(text, type) {
+
+      const bubble = document.createElement("div");
+
+      bubble.className = "message " + type;
+
+      bubble.textContent = text;
+
+      chat.appendChild(bubble);
+
+      chat.scrollTop = chat.scrollHeight;
+
+    }
+
+  </script>
