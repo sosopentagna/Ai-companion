@@ -131,6 +131,16 @@
 
     const API_URL = "https://script.google.com/macros/s/AKfycbw1QQrY2OKRbvMry0HOokFEWKnbPbuYS-f6hQP917TsmAiGymWGDD_4i0b7B2F9OkLN/exec";
 
+    // Save simple personal memories
+    function rememberFact(key, value) {
+      companionMemory.save(key, value);
+    }
+
+    // Recall a saved memory
+    function recallFact(key) {
+      return companionMemory.recall(key);
+    }
+
     form.addEventListener("submit", function(event) {
       event.preventDefault();
 
