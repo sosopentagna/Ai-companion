@@ -179,3 +179,20 @@
   </script>
 </body>
 </html>
+
+<script>
+  // Simple memory for your AI companion
+  const companionMemory = {
+    save: function(key, value) {
+      localStorage.setItem("companion_" + key, value);
+    },
+
+    recall: function(key) {
+      return localStorage.getItem("companion_" + key);
+    },
+
+    forget: function(key) {
+      localStorage.removeItem("companion_" + key);
+    }
+  };
+</script>
