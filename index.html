@@ -130,7 +130,14 @@
     const input = document.getElementById("message");
 
     const API_URL = "https://script.google.com/macros/s/AKfycbw1QQrY2OKRbvMry0HOokFEWKnbPbuYS-f6hQP917TsmAiGymWGDD_4i0b7B2F9OkLN/exec";
+const USER_ID_KEY = "companion_user_id";
 
+let USER_ID = localStorage.getItem(USER_ID_KEY);
+
+if (!USER_ID) {
+  USER_ID = crypto.randomUUID();
+  localStorage.setItem(USER_ID_KEY, USER_ID);
+}
     // Save simple personal memories
     function rememberFact(key, value) {
       companionMemory.save(key, value);
@@ -163,9 +170,10 @@
         script.remove();
       };
 
-      script.src = API_URL +
-        "?message=" + encodeURIComponent(text) +
-        "&callback=" + callbackName;
+  script.src = API_URL +
+  "?message=" + encodeURIComponent(text) +
+  "&userId=" + encodeURIComponent(USER_ID) +
+  "&callback=" + callbackName;    
 
       script.onerror = function() {
         waiting.textContent =
