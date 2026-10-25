@@ -293,7 +293,45 @@ function scheduleBlink() {
 }
 
 setTimeout(scheduleBlink, 2500);
+/* TEDDY MICROPHONE */
 
+const micButton = document.getElementById("mic-button");
+
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (micButton) {
+  micButton.addEventListener("click", function() {
+    if (!SpeechRecognition) {
+      alert("Voice input isn't supported by this browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+
+    setFaceExpression("listening");
+
+    recognition.onresult = function(event) {
+      input.value = event.results[0][0].transcript;
+      setFaceExpression("happy");
+    };
+
+    recognition.onerror = function() {
+      setFaceExpression("concerned");
+      alert("I couldn't hear you. Please try again.");
+    };
+
+    recognition.onend = function() {
+      if (face.classList.contains("listening")) {
+        setFaceExpression("happy");
+      }
+    };
+
+    recognition.start();
+  });
+}
 /* AI CONNECTION */
 
 const chat = document.getElementById("chat");
