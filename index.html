@@ -410,6 +410,9 @@ form.addEventListener("submit", function(event) {
 
     waiting.textContent =
       data.reply || "I couldn't get a reply. Please try again.";
+    if (data.reply) {
+  teddySpeak(data.reply);
+}
 
     delete window[callbackName];
     script.remove();
