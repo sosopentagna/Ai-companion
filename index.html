@@ -236,7 +236,30 @@
   from { transform: translateY(0); }
   to { transform: translateY(-3px); }
 }
+#robot-face {
+  transition: background 0.3s ease,
+              transform 0.3s ease;
+}
 
+#robot-face.happy {
+  transform: scale(1.03);
+}
+
+#robot-face.sad {
+  transform: translateY(3px);
+}
+
+#robot-face.curious {
+  transform: rotate(3deg);
+}
+
+#robot-face.concerned {
+  transform: scale(0.98);
+}
+
+#robot-face.thinking {
+  transform: translateX(4px);
+}
 #robot-face {
   transition: background 0.3s ease;
 }
