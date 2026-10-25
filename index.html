@@ -241,10 +241,36 @@
   transition: background 0.3s ease;
 }
 
+ 
+function blinkEyes() {
+  const face = document.getElementById("robot-face");
+
+  if (!face) return;
+
+  face.classList.add("blink");
+
+  setTimeout(() => {
+    face.classList.remove("blink");
+  }, 180);
+}
+
+setInterval(blinkEyes, 3500);
+
   </style>
 </head>
 
-<body>
+
+<script>
+function setFaceExpression(expression) {
+  const face = document.getElementById("robot-face");
+
+  if (!face) return;
+
+  face.className = expression;
+}
+</script>
+
+  <body>
   
 <div id="robot-face" class="happy">
   <div class="eye"></div>
