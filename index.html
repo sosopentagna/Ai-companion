@@ -95,6 +95,152 @@
       font-size: 15px;
       cursor: pointer;
     }
+ 
+/* TEDDY BEAR AI FACE */
+
+#robot-face {
+  width: 220px;
+  height: 145px;
+  margin: 20px auto;
+  background: #fff;
+  border: 3px solid #d8c6f5;
+  border-radius: 48% 48% 45% 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 45px;
+  position: relative;
+  box-shadow: 0 5px 15px #d8c6f555;
+}
+
+.eye {
+  width: 25px;
+  height: 34px;
+  background: #59447e;
+  border-radius: 50%;
+  position: relative;
+  animation: eye-float 3s ease-in-out infinite;
+}
+
+.eye::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  width: 7px;
+  height: 7px;
+  background: white;
+  border-radius: 50%;
+}
+
+#robot-face.blink .eye {
+  transform: scaleY(0.1);
+}
+
+#robot-face.happy .eye {
+  height: 14px;
+  border-radius: 50% 50% 0 0;
+  transform: scaleY(0.7);
+}
+
+#robot-face.sad .eye,
+#robot-face.concerned .eye {
+  transform: translateY(5px) scaleY(0.8);
+}
+
+#robot-face.curious .eye {
+  height: 42px;
+  width: 29px;
+}
+
+#robot-face.thinking .eye {
+  transform: translateY(-7px);
+}
+
+#robot-face.listening .eye {
+  animation: listening-pulse 1.2s ease-in-out infinite;
+}
+
+#robot-face.speaking {
+  animation: speaking-bounce 0.35s ease-in-out infinite alternate;
+}
+
+#robot-face.speaking .eye {
+  animation: eye-float 1s ease-in-out infinite;
+}
+
+#robot-mouth {
+  position: absolute;
+  left: 50%;
+  top: 95px;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 10px;
+  border-bottom: 3px solid #59447e;
+  border-radius: 0 0 50% 50%;
+  transition: all 0.25s ease;
+}
+
+#robot-face.happy #robot-mouth {
+  width: 42px;
+  height: 18px;
+  border-bottom-width: 4px;
+}
+
+#robot-face.sad #robot-mouth {
+  width: 28px;
+  height: 10px;
+  border-bottom: none;
+  border-top: 3px solid #59447e;
+  border-radius: 50% 50% 0 0;
+}
+
+#robot-face.concerned #robot-mouth {
+  width: 20px;
+  height: 5px;
+  border-bottom: 3px solid #59447e;
+}
+
+#robot-face.curious #robot-mouth {
+  width: 12px;
+  height: 12px;
+  border: 3px solid #59447e;
+  border-radius: 50%;
+}
+
+#robot-face.thinking #robot-mouth {
+  width: 22px;
+  height: 3px;
+  border-bottom: 3px solid #59447e;
+}
+
+#robot-face.speaking #robot-mouth {
+  width: 20px;
+  height: 18px;
+  border: 3px solid #59447e;
+  border-radius: 50%;
+  background: #f0e7ff;
+}
+
+@keyframes eye-float {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: 4px; }
+}
+
+@keyframes listening-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+@keyframes speaking-bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
+}
+
+#robot-face {
+  transition: background 0.3s ease;
+}
+
   </style>
 </head>
 
