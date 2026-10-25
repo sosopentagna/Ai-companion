@@ -2,364 +2,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My AI Companion</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My AI Companion</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f0ff;
-      color: #302641;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 24px 12px;
-    }
+body {
+  margin: 0;
+  padding: 12px;
+  font-family: Arial, sans-serif;
+  background: #f5f0ff;
+  color: #302641;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
 
-    .app {
-      width: 100%;
-      max-width: 600px;
-      height: 85vh;
-      min-height: 420px;
-      display: flex;
-      flex-direction: column;
-      background: white;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 0 8px 35px #38245b18;
-    }
+.app {
+  width: 100%;
+  max-width: 600px;
+  height: 94vh;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 8px 35px #38245b18;
+}
 
-    header {
-      padding: 22px;
-      background: #e8dcff;
-    }
+header {
+  padding: 12px;
+  background: #e8dcff;
+  text-align: center;
+}
 
-    header h1 { margin: 0 0 6px; font-size: 22px; }
-    header p { margin: 0; color: #685b79; font-size: 14px; }
+header h1 {
+  margin: 4px 0;
+  font-size: 22px;
+}
 
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+header p {
+  margin: 4px 0;
+  color: #685b79;
+  font-size: 14px;
+}
 
-    .message {
-      padding: 12px 15px;
-      border-radius: 17px;
-      max-width: 85%;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
-    }
-
-    .bot {
-      align-self: flex-start;
-      background: #f0eafa;
-    }
-
-    .user {
-      align-self: flex-end;
-      background: #8060b8;
-      color: white;
-    }
-
-    form {
-      display: flex;
-      gap: 8px;
-      padding: 14px;
-      border-top: 1px solid #eee7f7;
-    }
-
-    input {
-      flex: 1;
-      min-width: 0;
-      padding: 13px;
-      border: 1px solid #ddd1ee;
-      border-radius: 12px;
-      font-size: 16px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 12px 17px;
-      background: #8060b8;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
- 
-/* TEDDY BEAR AI FACE */
+/* PIXEL TEDDY BEAR */
 
 #robot-face {
-  width: 220px;
-  height: 145px;
-  margin: 20px auto;
-  background: #fff;
-  border: 3px solid #d8c6f5;
-  border-radius: 48% 48% 45% 45%;
+  width: 240px;
+  height: 210px;
+  margin: 0 auto;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 45px;
-  position: relative;
-  box-shadow: 0 5px 15px #d8c6f555;
 }
 
-.eye {
-  width: 25px;
-  height: 34px;
-  background: #59447e;
+#teddy-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* ANIMATED EYES */
+
+.teddy-eye {
+  position: absolute;
+  top: 34%;
+  width: 12px;
+  height: 12px;
+  background: #39271f;
   border-radius: 50%;
-  position: relative;
-  animation: eye-float 3s ease-in-out infinite;
+  transition: height 0.15s ease;
+  pointer-events: none;
 }
 
-.eye::after {
+.teddy-eye.left {
+  left: 36%;
+}
+
+.teddy-eye.right {
+  right: 36%;
+}
+
+.teddy-eye::after {
   content: "";
   position: absolute;
-  top: 6px;
-  right: 5px;
-  width: 7px;
-  height: 7px;
+  top: 2px;
+  right: 2px;
+  width: 3px;
+  height: 3px;
   background: white;
   border-radius: 50%;
 }
 
-#robot-face.blink .eye {
-  transform: scaleY(0.1);
+#robot-face.blink .teddy-eye {
+  height: 2px;
 }
 
-#robot-face.happy .eye {
-  height: 14px;
-  border-radius: 50% 50% 0 0;
-  transform: scaleY(0.7);
+#robot-face.curious .teddy-eye {
+  height: 15px;
 }
 
-#robot-face.sad .eye,
-#robot-face.concerned .eye {
-  transform: translateY(5px) scaleY(0.8);
+#robot-face.thinking .teddy-eye {
+  transform: translateY(-2px);
 }
 
-#robot-face.curious .eye {
-  height: 42px;
-  width: 29px;
+#robot-face.listening .teddy-eye {
+  animation: listen 1.2s ease-in-out infinite;
 }
 
-#robot-face.thinking .eye {
-  transform: translateY(-7px);
+#robot-face.speaking .teddy-eye {
+  animation: listen 0.7s ease-in-out infinite;
 }
 
-#robot-face.listening .eye {
-  animation: listening-pulse 1.2s ease-in-out infinite;
+@keyframes listen {
+  50% {
+    transform: scale(1.12);
+  }
 }
 
-#robot-face.speaking {
-  animation: speaking-bounce 0.35s ease-in-out infinite alternate;
+/* EXPRESSION BUTTONS */
+
+#expression-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
 }
 
-#robot-face.speaking .eye {
-  animation: eye-float 1s ease-in-out infinite;
+#expression-controls button {
+  padding: 7px 9px;
+  font-size: 12px;
+  border-radius: 10px;
 }
 
-#robot-mouth {
-  position: absolute;
-  left: 50%;
-  top: 95px;
-  transform: translateX(-50%);
-  width: 28px;
-  height: 10px;
-  border-bottom: 3px solid #59447e;
-  border-radius: 0 0 50% 50%;
-  transition: all 0.25s ease;
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 17px;
+  background: #8060b8;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-#robot-face.happy #robot-mouth {
-  width: 42px;
-  height: 18px;
-  border-bottom-width: 4px;
+#chat {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-#robot-face.sad #robot-mouth {
-  width: 28px;
-  height: 10px;
-  border-bottom: none;
-  border-top: 3px solid #59447e;
-  border-radius: 50% 50% 0 0;
+.message {
+  padding: 12px 15px;
+  border-radius: 17px;
+  max-width: 85%;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
-#robot-face.concerned #robot-mouth {
-  width: 20px;
-  height: 5px;
-  border-bottom: 3px solid #59447e;
+.bot {
+  align-self: flex-start;
+  background: #f0eafa;
 }
 
-#robot-face.curious #robot-mouth {
-  width: 12px;
-  height: 12px;
-  border: 3px solid #59447e;
-  border-radius: 50%;
+.user {
+  align-self: flex-end;
+  background: #8060b8;
+  color: white;
 }
 
-#robot-face.thinking #robot-mouth {
-  width: 22px;
-  height: 3px;
-  border-bottom: 3px solid #59447e;
+form {
+  display: flex;
+  gap: 8px;
+  padding: 14px;
+  border-top: 1px solid #eee7f7;
 }
 
-#robot-face.speaking #robot-mouth {
-  width: 20px;
-  height: 18px;
-  border: 3px solid #59447e;
-  border-radius: 50%;
-  background: #f0e7ff;
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #ddd1ee;
+  border-radius: 12px;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<main class="app">
+
+<header>
+  <div id="robot-face" class="happy">
+    <img
+      id="teddy-image"
+      src="./teddy.png"
+      alt="Pixel art teddy bear"
+    >
+
+    <div class="teddy-eye left"></div>
+    <div class="teddy-eye right"></div>
+  </div>
+
+  <h1>♡ Your AI Companion</h1>
+  <p>A little space just for conversation.</p>
+
+  <div id="expression-controls">
+    <button type="button" onclick="setFaceExpression('happy')">Happy</button>
+    <button type="button" onclick="setFaceExpression('sad')">Sad</button>
+    <button type="button" onclick="setFaceExpression('curious')">Curious</button>
+    <button type="button" onclick="setFaceExpression('concerned')">Concerned</button>
+    <button type="button" onclick="setFaceExpression('thinking')">Thinking</button>
+    <button type="button" onclick="setFaceExpression('listening')">Listening</button>
+    <button type="button" onclick="setFaceExpression('speaking')">Speaking</button>
+  </div>
+</header>
+
+<div id="chat" aria-live="polite">
+  <div class="message bot">
+    Hi! I'm your AI companion. ✨
+    I'm happy to chat with you. What's on your mind?
+  </div>
+</div>
+
+<form id="chat-form">
+  <input
+    id="message"
+    placeholder="Write a message..."
+    autocomplete="off"
+    aria-label="Your message"
+    required
+  >
+  <button type="submit">Send</button>
+</form>
+
+</main>
+
+<script>
+/* TEDDY EXPRESSIONS */
+
+const face = document.getElementById("robot-face");
+
+function setFaceExpression(expression) {
+  const allowed = [
+    "happy",
+    "sad",
+    "curious",
+    "concerned",
+    "thinking",
+    "listening",
+    "speaking"
+  ];
+
+  if (allowed.includes(expression)) {
+    face.className = expression;
+  }
 }
 
-@keyframes eye-float {
-  0%, 100% { margin-top: 0; }
-  50% { margin-top: 4px; }
-}
+/* AUTOMATIC BLINKING */
 
-@keyframes listening-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-}
-
-@keyframes speaking-bounce {
-  from { transform: translateY(0); }
-  to { transform: translateY(-3px); }
-}
-#robot-face {
-  transition: background 0.3s ease,
-              transform 0.3s ease;
-}
-
-#robot-face.happy {
-  transform: scale(1.03);
-}
-
-#robot-face.sad {
-  transform: translateY(3px);
-}
-
-#robot-face.curious {
-  transform: rotate(3deg);
-}
-
-#robot-face.concerned {
-  transform: scale(0.98);
-}
-
-#robot-face.thinking {
-  transform: translateX(4px);
-}
-#robot-face {
-  transition: background 0.3s ease;
-}
-
- 
 function blinkEyes() {
-  const face = document.getElementById("robot-face");
-
-  if (!face) return;
+  if (face.classList.contains("speaking")) return;
 
   face.classList.add("blink");
 
-  setTimeout(() => {
+  setTimeout(function() {
     face.classList.remove("blink");
-  }, 180);
+  }, 150);
 }
 
-setInterval(blinkEyes, 3500);
-
-function showHappy() {
-  setFaceExpression("happy");
+function scheduleBlink() {
+  blinkEyes();
+  setTimeout(scheduleBlink, 3000 + Math.random() * 2000);
 }
 
-function showSad() {
-  setFaceExpression("sad");
-}
+setTimeout(scheduleBlink, 2500);
 
-function showCurious() {
-  setFaceExpression("curious");
-}
+/* AI CONNECTION */
 
-function showConcerned() {
-  setFaceExpression("concerned");
-}
+const chat = document.getElementById("chat");
+const form = document.getElementById("chat-form");
+const input = document.getElementById("message");
 
-function showThinking() {
-  setFaceExpression("thinking");
-}
+const API_URL = "https://script.google.com/macros/s/AKfycbw1QQrY2OKRbvMry0HOokFEWKnbPbuYS-f6hQP917TsmAiGymWGDD_4i0b7B2F9OkLN/exec";
 
-function showListening() {
-  setFaceExpression("listening");
-}
-
-function showSpeaking() {
-  setFaceExpression("speaking");
-}
-
-  </style>
-</head>
-
-
-<script>
-function setFaceExpression(expression) {
-  const face = document.getElementById("robot-face");
-
-  if (!face) return;
-
-  face.className = expression;
-}
-</script>
-
-  <body>
-  
-<div id="robot-face" class="happy">
-  <div class="eye"></div>
-  <div class="eye"></div>
-  <div id="robot-mouth"></div>
-</div>
-
-  <main class="app">
-    <header>
-      <h1>♡ Your AI Companion</h1>
-      <p>A little space just for conversation.</p>
-    </header>
-
-    <div id="chat" aria-live="polite">
-      <div class="message bot">
-        Hi! I'm your AI companion. ✨
-        I'm happy to chat with you. What's on your mind?
-      </div>
-    </div>
-
-    <form id="chat-form">
-      <input
-        id="message"
-        placeholder="Write a message..."
-        autocomplete="off"
-        aria-label="Your message"
-        required
-      >
-      <button type="submit">Send</button>
-    </form>
-  </main>
-
-  <script>
-    const chat = document.getElementById("chat");
-    const form = document.getElementById("chat-form");
-    const input = document.getElementById("message");
-
-    const API_URL = "https://script.google.com/macros/s/AKfycbw1QQrY2OKRbvMry0HOokFEWKnbPbuYS-f6hQP917TsmAiGymWGDD_4i0b7B2F9OkLN/exec";
 const USER_ID_KEY = "companion_user_id";
 
 let USER_ID = localStorage.getItem(USER_ID_KEY);
@@ -368,80 +310,121 @@ if (!USER_ID) {
   USER_ID = crypto.randomUUID();
   localStorage.setItem(USER_ID_KEY, USER_ID);
 }
-    // Save simple personal memories
-    function rememberFact(key, value) {
-      companionMemory.save(key, value);
-    }
 
-    // Recall a saved memory
-    function recallFact(key) {
-      return companionMemory.recall(key);
-    }
+/* SIMPLE LOCAL MEMORY */
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+const companionMemory = {
+  save: function(key, value) {
+    localStorage.setItem("companion_" + key, value);
+  },
 
-      const text = input.value.trim();
-      if (!text) return;
+  recall: function(key) {
+    return localStorage.getItem("companion_" + key);
+  },
 
-      addMessage(text, "user");
-      input.value = "";
+  forget: function(key) {
+    localStorage.removeItem("companion_" + key);
+  }
+};
 
-      const waiting = addMessage("Thinking... ✨", "bot");
-      const callbackName = "geminiCallback" + Date.now();
+function rememberFact(key, value) {
+  companionMemory.save(key, value);
+}
 
-      const script = document.createElement("script");
+function recallFact(key) {
+  return companionMemory.recall(key);
+}
 
-      window[callbackName] = function(data) {
-        waiting.textContent =
-          data.reply || "I couldn't get a reply. Please try again.";
+/* FACE RESPONDS TO CHAT */
 
-        delete window[callbackName];
-        script.remove();
-      };
+input.addEventListener("focus", function() {
+  setFaceExpression("listening");
+});
 
-  script.src = API_URL +
-  "?message=" + encodeURIComponent(text) +
-  "&userId=" + encodeURIComponent(USER_ID) +
-  "&callback=" + callbackName;    
+input.addEventListener("input", function() {
+  setFaceExpression(input.value.trim() ? "listening" : "happy");
+});
 
-      script.onerror = function() {
-        waiting.textContent =
-          "I couldn't connect right now. Please try again.";
+/* SEND A MESSAGE */
 
-        delete window[callbackName];
-        script.remove();
-      };
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
 
-      document.body.appendChild(script);
-    });
+  const text = input.value.trim();
 
-    function addMessage(text, type) {
-      const bubble = document.createElement("div");
-      bubble.className = "message " + type;
-      bubble.textContent = text;
-      chat.appendChild(bubble);
-      chat.scrollTop = chat.scrollHeight;
-      return bubble;
-    }
-  </script>
-</body>
-</html>
+  if (!text) return;
 
-<script>
-  // Simple memory for your AI companion
-  const companionMemory = {
-    save: function(key, value) {
-      localStorage.setItem("companion_" + key, value);
-    },
+  addMessage(text, "user");
+  input.value = "";
 
-    recall: function(key) {
-      return localStorage.getItem("companion_" + key);
-    },
+  setFaceExpression("thinking");
 
-    forget: function(key) {
-      localStorage.removeItem("companion_" + key);
+  const waiting = addMessage("Thinking... ✨", "bot");
+  const callbackName = "geminiCallback" + Date.now();
+  const script = document.createElement("script");
+
+  let finished = false;
+
+  window[callbackName] = function(data) {
+    if (finished) return;
+
+    finished = true;
+
+    waiting.textContent =
+      data.reply || "I couldn't get a reply. Please try again.";
+
+    delete window[callbackName];
+    script.remove();
+
+    if (data.reply) {
+      setFaceExpression("speaking");
+
+      setTimeout(function() {
+        if (face.classList.contains("speaking")) {
+          setFaceExpression("happy");
+        }
+      }, 1800);
+    } else {
+      setFaceExpression("concerned");
     }
   };
+
+  script.src = API_URL +
+    "?message=" + encodeURIComponent(text) +
+    "&userId=" + encodeURIComponent(USER_ID) +
+    "&callback=" + callbackName;
+
+  script.onerror = function() {
+    if (finished) return;
+
+    finished = true;
+
+    waiting.textContent =
+      "I couldn't connect right now. Please try again.";
+
+    setFaceExpression("concerned");
+
+    delete window[callbackName];
+    script.remove();
+  };
+
+  document.body.appendChild(script);
+});
+
+/* ADD CHAT MESSAGES */
+
+function addMessage(text, type) {
+  const bubble = document.createElement("div");
+
+  bubble.className = "message " + type;
+  bubble.textContent = text;
+
+  chat.appendChild(bubble);
+  chat.scrollTop = chat.scrollHeight;
+
+  return bubble;
+}
 </script>
+
+</body>
 </html>
