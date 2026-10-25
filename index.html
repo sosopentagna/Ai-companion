@@ -254,34 +254,6 @@ input {
 
 </main>
 // Teddy microphone
-const micButton = document.getElementById("mic-button");
-const messageInput = document.querySelector('input[type="text"]');
-
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
-
-if (micButton) {
-  micButton.addEventListener("click", () => {
-    if (!SpeechRecognition) {
-      alert("Voice input isn't supported in this browser. Try Chrome if available.");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
-    recognition.interimResults = false;
-
-    recognition.onresult = (event) => {
-      messageInput.value = event.results[0][0].transcript;
-    };
-
-    recognition.onerror = () => {
-      alert("I couldn't hear you. Please try again.");
-    };
-
-    recognition.start();
-  });
-}
 <script>
 /* TEDDY EXPRESSIONS */
 
