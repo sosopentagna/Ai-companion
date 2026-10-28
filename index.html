@@ -1130,6 +1130,798 @@ const circle = $("#bear-breath-circle");
 </script>
 <!-- END AI COMPANION ADD-ON -->
 
-  
+<!-- VOICE EXPANSION 3: TEDDY BEAR VOICE SYSTEM -->
+
+<style>
+  #bear-voice-pro {
+    max-width: 760px;
+    margin: 24px auto;
+    padding: 18px;
+    border-radius: 24px;
+    border: 1px solid #ddc9f3;
+    background: linear-gradient(145deg, #fffaff, #eee5ff);
+    color: #392b4c;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  #bear-voice-pro .vp-card {
+    background: white;
+    padding: 15px;
+    margin: 13px 0;
+    border-radius: 16px;
+    border: 1px solid #e9def6;
+  }
+
+  #bear-voice-pro h2 {
+    font-size: 23px;
+    margin: 8px 0;
+  }
+
+  #bear-voice-pro h3 {
+    font-size: 16px;
+    margin: 0 0 12px;
+  }
+
+  #bear-voice-pro p {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  #bear-voice-pro label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 12px 0 5px;
+  }
+  #bear-voice-pro select,
+  #bear-voice-pro input[type="range"],
+  #bear-voice-pro textarea {
+    width: 100%;
+    margin: 5px 0 10px;
+  }
+
+  #bear-voice-pro select,
+  #bear-voice-pro textarea {
+    padding: 11px;
+    border: 1px solid #d9c8ed;
+    border-radius: 10px;
+    background: #fff;
+    color: #392b4c;
+    font: inherit;
+  }
+
+  #bear-voice-pro button {
+    border: 0;
+    border-radius: 11px;
+    background: #8965ba;
+    color: white;
+    padding: 11px 14px;
+    margin: 4px 3px 4px 0;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #bear-voice-pro button.secondary {
+    background: #eee4fa;
+    color: #4c3567;
+  }
+
+  #bear-voice-pro button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  #bear-voice-pro .vp-status {
+    background: #f7f1ff;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  #bear-voice-pro .vp-bear {
+    font-size: 64px;
+    transition: transform .2s ease;
+  }
+
+  #bear-voice-pro .vp-speaking {
+    animation: vp-bounce .8s ease-in-out infinite alternate;
+  }
+
+  @keyframes vp-bounce {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-5px) scale(1.05); }
+  }
+  #bear-voice-pro .vp-small {
+    color: #786589;
+    font-size: 12px;
+  }
+
+  #bear-voice-pro .vp-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  @media(max-width: 480px) {
+    #bear-voice-pro {
+      padding: 11px;
+    }
+  }
+</style>
+  <section id="bear-voice-pro">
+
+  <header style="text-align:center;padding:8px">
+    <div id="vp-bear" class="vp-bear">🧸</div>
+    <h2>Talk to Your Teddy Bear</h2>
+    <p>
+      Your cozy voice companion. Listen, speak, and choose how you
+      want your conversations to sound.
+    </p>
+  </header>
+
+  <!-- VOICE SELECTION -->
+
+  <section class="vp-card">
+    <h3>🎀 Customize your teddy bear's voice</h3>
+
+    <label for="vp-voice">Available voices</label>
+    <select id="vp-voice">
+      <option value="">Loading available voices...</option>
+    </select>
+
+    <label for="vp-language">Speech language</label>
+    <select id="vp-language">
+      <option value="en-US">English (United States)</option>
+      <option value="en-GB">English (United Kingdom)</option>
+      <option value="pt-BR">Portuguese (Brazil)</option>
+      <option value="es-ES">Spanish</option>
+      <option value="fr-FR">French</option>
+    </select>
+
+    <label for="vp-speed">
+      Speaking speed: <span id="vp-speed-value">0.9</span>
+    </label>
+    <input id="vp-speed" type="range"
+           min="0.6" max="1.3" step="0.1" value="0.9">
+
+    <label for="vp-pitch">
+      Voice pitch: <span id="vp-pitch-value">1.1</span>
+    </label>
+    <input id="vp-pitch" type="range"
+           min="0.6" max="1.6" step="0.1" value="1.1">
+
+    <div class="vp-row">
+      <button type="button" id="vp-test">🔊 Test voice</button>
+      <button type="button" class="secondary" id="vp-refresh">
+        Refresh voices
+      </button>
+    </div>
+
+    <p class="vp-small">
+      The available voices depend on your browser and device. Pitch and
+      speed adjust the selected browser voice; they do not create a new AI voice.
+    </p>
+  </section>
+
+  <!-- READ AI RESPONSES -->
+
+  <section class="vp-card">
+    <h3>🔊 Listen to your AI's response</h3>
+
+    <p>
+      After your companion replies, use this section to read the response
+      aloud. If automatic detection doesn't work, paste the response below.
+    </p>
+
+    <label for="vp-response">Response to read aloud</label>
+    <textarea id="vp-response"
+      placeholder="Paste your AI companion's reply here if it isn't detected automatically..."
+      rows="4"></textarea>
+
+    <div class="vp-row">
+      <button type="button" id="vp-read-latest">
+        Read latest reply
+      </button>
+      <button type="button" id="vp-read-box">
+        ▶ Read text above
+      </button>
+    </div>
+
+    <div class="vp-row">
+      <button type="button" class="secondary" id="vp-pause">
+        ⏸ Pause
+      </button>
+      <button type="button" class="secondary" id="vp-resume">
+        ▶ Resume
+      </button>
+      <button type="button" class="secondary" id="vp-stop">
+        ⏹ Stop
+      </button>
+    </div>
+  </section>
+
+  <!-- SPEAK TO THE AI -->
+
+  <section class="vp-card">
+    <h3>🎙️ Speak to your companion</h3>
+
+    <p>
+      Press the microphone button, allow microphone access if requested,
+      and speak naturally. Your words will appear in the existing chat box.
+      Review the message and press your normal Send button.
+    </p>
+
+    <label for="vp-input-language">Language to recognize</label>
+    <select id="vp-input-language">
+      <option value="en-US">English (United States)</option>
+      <option value="en-GB">English (United Kingdom)</option>
+      <option value="pt-BR">Portuguese (Brazil)</option>
+      <option value="es-ES">Spanish</option>
+      <option value="fr-FR">French</option>
+    </select>
+
+    <div class="vp-row">
+      <button type="button" id="vp-mic">🎙️ Start speaking</button>
+      <button type="button" id="vp-mic-stop" class="secondary">
+        Stop listening
+      </button>
+    </div>
+
+    <div id="vp-transcript" class="vp-status" aria-live="polite">
+      Your dictated words will appear here.
+    </div>
+
+    <p class="vp-small">
+      Depending on the browser, speech recognition may use an online service.
+      Check your browser's privacy settings before using the microphone.
+    </p>
+  </section>
+
+  <!-- QUICK VOICE MESSAGES -->
+
+  <section class="vp-card">
+    <h3>💌 Say what you need</h3>
+    <p>Tap a message to put it in your chat box.</p>
+
+    <div class="vp-row">
+      <button type="button" data-vp-message="I would like some emotional support right now. Please ask me one gentle question at a time.">
+        💜 I need support
+      </button>
+
+      <button type="button" data-vp-message="Can you help me understand what I am feeling without making assumptions?">
+        🌷 Help me understand
+      </button>
+
+      <button type="button" data-vp-message="Please help me make a simple plan, one step at a time.">
+        🌱 Help me plan
+      </button>
+
+      <button type="button" data-vp-message="Can we have a calm, cozy conversation for a little while?">
+        ☁️ Cozy conversation
+      </button>
+    </div>
+  </section>
+
+  <!-- VOICE STATUS -->
+
+  <section class="vp-card">
+    <h3>✨ Voice status</h3>
+    <div id="vp-status" class="vp-status" role="status" aria-live="polite">
+      Ready to configure your voice.
+    </div>
+  </section>
+
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  const root = document.getElementById("bear-voice-pro");
+
+  if (!root || root.dataset.initialized === "yes") return;
+  root.dataset.initialized = "yes";
+
+  const $ = (selector) => root.querySelector(selector);
+
+  const status = $("#vp-status");
+  const transcriptBox = $("#vp-transcript");
+  const bear = $("#vp-bear");
+
+  let availableVoices = [];
+  let recognition = null;
+  let finalTranscript = "";
+  let listening = false;
+  let speechGeneration = 0;
+
+  // ------------------------------
+  // VOICE SUPPORT
+  // ------------------------------
+
+  function setStatus(message) {
+    status.textContent = message;
+  }
+
+  function speechSupported() {
+    return "speechSynthesis" in window &&
+           "SpeechSynthesisUtterance" in window;
+  }
+
+  function updateSliderLabels() {
+    $("#vp-speed-value").textContent = $("#vp-speed").value;
+    $("#vp-pitch-value").textContent = $("#vp-pitch").value;
+  }
+
+  $("#vp-speed").addEventListener("input", updateSliderLabels);
+  $("#vp-pitch").addEventListener("input", updateSliderLabels);
+
+  function loadVoices() {
+    const select = $("#vp-voice");
+
+    if (!speechSupported()) {
+      select.innerHTML = "";
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "Speech synthesis is unavailable";
+      select.appendChild(option);
+      setStatus("Your browser does not support speech synthesis.");
+      return;
+    }
+
+    const previousSelection = select.value;
+    availableVoices = window.speechSynthesis.getVoices();
+
+    select.innerHTML = "";
+
+    if (!availableVoices.length) {
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "No voices loaded yet — refresh to try again";
+      select.appendChild(option);
+      return;
+    }
+
+    availableVoices.forEach(function (voice, index) {
+      const option = document.createElement("option");
+
+      option.value = String(index);
+      option.textContent =
+        voice.name + " (" + voice.lang + ")" +
+        (voice.default ? " — default" : "");
+
+      select.appendChild(option);
+    });
+
+    if (
+      previousSelection !== "" &&
+      Number(previousSelection) < availableVoices.length
+    ) {
+      select.value = previousSelection;
+    } else {
+      const language = $("#vp-language").value.toLowerCase();
+
+      let bestIndex = availableVoices.findIndex(function (voice) {
+        return voice.lang.toLowerCase() === language;
+      });
+
+      if (bestIndex < 0) {
+        const prefix = language.split("-")[0];
+
+        bestIndex = availableVoices.findIndex(function (voice) {
+          return voice.lang.toLowerCase().startsWith(prefix);
+        });
+      }
+
+      select.value = String(bestIndex >= 0 ? bestIndex : 0);
+    }
+
+    setStatus(
+      availableVoices.length +
+      " browser voice option(s) available."
+    );
+  }
+
+  if (speechSupported()) {
+    loadVoices();
+
+    window.speechSynthesis.addEventListener?.(
+      "voiceschanged",
+      loadVoices
+    );
+  }
+
+  $("#vp-refresh").addEventListener("click", loadVoices);
+
+  // ------------------------------
+  // TEXT-TO-SPEECH
+  // ------------------------------
+
+  function stopSpeech() {
+    speechGeneration++;
+
+    if (speechSupported()) {
+      window.speechSynthesis.cancel();
+    }
+
+    bear.classList.remove("vp-speaking");
+  }
+
+  function speakText(text) {
+    if (!speechSupported()) {
+      setStatus("Speech playback is not supported in this browser.");
+      return;
+    }
+
+    const cleanText = String(text || "").trim();
+
+    if (!cleanText) {
+      setStatus("There is no text to read yet.");
+      return;
+    }
+
+    // Prevent excessively long messages from freezing playback.
+    const safeText = cleanText.slice(0, 12000);
+
+    stopSpeech();
+
+    const generation = speechGeneration;
+    const utterance = new SpeechSynthesisUtterance(safeText);
+    const voiceIndex = Number($("#vp-voice").value);
+    const voice = availableVoices[voiceIndex];
+
+    utterance.lang = $("#vp-language").value;
+    utterance.rate = Number($("#vp-speed").value);
+    utterance.pitch = Number($("#vp-pitch").value);
+
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang || utterance.lang;
+    }
+
+    utterance.onstart = function () {
+      if (generation !== speechGeneration) return;
+
+      bear.classList.add("vp-speaking");
+      setStatus("Your teddy bear is speaking...");
+    };
+
+    utterance.onend = function () {
+      if (generation !== speechGeneration) return;
+
+      bear.classList.remove("vp-speaking");
+      setStatus("Finished reading the message.");
+    };
+
+    utterance.onerror = function (event) {
+      if (generation !== speechGeneration) return;
+
+      bear.classList.remove("vp-speaking");
+
+      if (event.error !== "canceled" && event.error !== "interrupted") {
+        setStatus("Speech playback could not finish. Try another voice.");
+      }
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  $("#vp-test").addEventListener("click", function () {
+    speakText(
+      "Hello! I'm your cozy companion. I'm here to help you reflect, " +
+      "explore your thoughts, and take things one step at a time."
+    );
+  });
+
+  $("#vp-read-box").addEventListener("click", function () {
+    speakText($("#vp-response").value);
+  });
+
+  $("#vp-stop").addEventListener("click", function () {
+    stopSpeech();
+    setStatus("Speech stopped.");
+  });
+
+  $("#vp-pause").addEventListener("click", function () {
+    if (!speechSupported()) return;
+
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.pause();
+      setStatus("Speech paused.");
+    } else {
+      setStatus("There is no active speech to pause.");
+    }
+  });
+
+  $("#vp-resume").addEventListener("click", function () {
+    if (!speechSupported()) return;
+
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      setStatus("Resuming speech.");
+    } else {
+      setStatus("Speech is not paused.");
+    }
+  });
+
+  // ------------------------------
+  // FIND AN EXISTING CHAT INPUT
+  // ------------------------------
+
+  function findChatInput() {
+    const selectors = [
+      "#userInput",
+      "#messageInput",
+      "#chatInput",
+      "#chat-input",
+      "#message-input",
+      "#message",
+      "#prompt",
+      "textarea",
+      'input[type="text"]'
+    ];
+
+    for (const selector of selectors) {
+      const fields = document.querySelectorAll(selector);
+
+      for (const field of fields) {
+        if (root.contains(field)) continue;
+        if (field.disabled || field.readOnly) continue;
+        if (field.type === "hidden") continue;
+
+        const rect = field.getBoundingClientRect();
+
+        if (rect.width > 0 && rect.height > 0) {
+          return field;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function putTextInChat(text) {
+    const field = findChatInput();
+
+    if (!field) {
+      setStatus(
+        "Couldn't find your existing chat input. " +
+        "Your original chat has not been changed."
+      );
+      return false;
+    }
+
+    field.value = text;
+    field.dispatchEvent(new Event("input", { bubbles: true }));
+    field.dispatchEvent(new Event("change", { bubbles: true }));
+    field.focus();
+    field.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    setStatus(
+      "Message added to your existing chat box. " +
+      "Review it and press your normal Send button."
+    );
+
+    return true;
+  }
+
+  // ------------------------------
+  // SPEECH RECOGNITION
+  // ------------------------------
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  function stopListening() {
+    if (!recognition) {
+      listening = false;
+      return;
+    }
+
+    try {
+      recognition.stop();
+    } catch (error) {
+      // The browser may already have stopped recognition.
+    }
+  }
+
+  $("#vp-mic").addEventListener("click", function () {
+    if (!SpeechRecognition) {
+      transcriptBox.textContent =
+        "Speech recognition is not supported in this browser. " +
+        "You can use your keyboard's built-in dictation instead.";
+      setStatus("Voice input is unavailable in this browser.");
+      return;
+    }
+
+    if (listening) {
+      stopListening();
+      return;
+    }
+
+    try {
+      finalTranscript = "";
+      transcriptBox.textContent = "Starting microphone...";
+
+      recognition = new SpeechRecognition();
+      const currentRecognition = recognition;
+
+      currentRecognition.lang = $("#vp-input-language").value;
+      currentRecognition.continuous = false;
+      currentRecognition.interimResults = true;
+      currentRecognition.maxAlternatives = 1;
+
+      currentRecognition.onstart = function () {
+        listening = true;
+        $("#vp-mic").textContent = "🎙️ Listening...";
+        transcriptBox.textContent = "Listening. Speak naturally.";
+        setStatus("Microphone active.");
+      };
+
+      currentRecognition.onresult = function (event) {
+        let interim = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const words = result[0].transcript;
+
+          if (result.isFinal) {
+            finalTranscript += words;
+          } else {
+            interim += words;
+          }
+        }
+
+        transcriptBox.textContent =
+          (finalTranscript + " " + interim).trim() ||
+          "Listening...";
+      };
+
+      currentRecognition.onerror = function (event) {
+        listening = false;
+        $("#vp-mic").textContent = "🎙️ Start speaking";
+
+        transcriptBox.textContent =
+          "Microphone issue: " + event.error +
+          ". Check permissions and try again.";
+
+        setStatus("Voice input encountered a problem.");
+      };
+
+      currentRecognition.onend = function () {
+        listening = false;
+        $("#vp-mic").textContent = "🎙️ Start speaking";
+
+        if (recognition === currentRecognition) {
+          recognition = null;
+        }
+
+        const words = finalTranscript.trim();
+
+        if (words) {
+          transcriptBox.textContent =
+            "Recognized: " + words +
+            "\n\nReview the words before sending them.";
+
+          putTextInChat(words);
+        } else if (
+          !transcriptBox.textContent.startsWith("Microphone issue:")
+        ) {
+          transcriptBox.textContent =
+            "No speech was recognized. You can try again.";
+        }
+      };
+
+      currentRecognition.start();
+    } catch (error) {
+      listening = false;
+      recognition = null;
+      $("#vp-mic").textContent = "🎙️ Start speaking";
+      setStatus(
+        "Couldn't start the microphone. Check browser permissions."
+      );
+    }
+  });
+
+  $("#vp-mic-stop").addEventListener("click", function () {
+    stopListening();
+  });
+
+  // ------------------------------
+  // FIND A RECENT AI RESPONSE
+  // ------------------------------
+
+  function findLatestAIResponse() {
+    const selectors = [
+      "[data-role='assistant']",
+      ".assistant-message",
+      ".bot-message",
+      ".ai-message",
+      ".message.assistant",
+      ".chat-message.assistant",
+      "#chatMessages .message",
+      "#chat-messages .message",
+      "#chatBox .message",
+      "#chatbox .message",
+      ".chat-container .message"
+    ];
+
+    for (const selector of selectors) {
+      const nodes = Array.from(document.querySelectorAll(selector))
+        .filter(node => !root.contains(node));
+
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        const node = nodes[i];
+
+        const role = (
+          node.getAttribute("data-role") ||
+          node.className ||
+          ""
+        ).toString().toLowerCase();
+
+        if (
+          role.includes("user") ||
+          role.includes("human") ||
+          role.includes("you")
+        ) continue;
+
+        const text = (node.innerText || node.textContent || "").trim();
+
+        if (text) return text;
+      }
+    }
+
+    return "";
+  }
+
+  $("#vp-read-latest").addEventListener("click", function () {
+    const response = findLatestAIResponse();
+
+    if (response) {
+      $("#vp-response").value = response;
+      speakText(response);
+      return;
+    }
+
+    const selection =
+      window.getSelection &&
+      window.getSelection().toString().trim();
+
+    if (selection) {
+      $("#vp-response").value = selection;
+      speakText(selection);
+      return;
+    }
+
+    setStatus(
+      "I couldn't automatically identify the latest AI reply. " +
+      "Paste the reply into the text box above and press Read text above."
+    );
+  });
+
+  // ------------------------------
+  // QUICK MESSAGES
+  // ------------------------------
+
+  root.querySelectorAll("[data-vp-message]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      putTextInChat(button.dataset.vpMessage);
+    });
+  });
+
+  // ------------------------------
+  // CLEAN UP WHEN LEAVING THE PAGE
+  // ------------------------------
+
+  window.addEventListener("pagehide", function () {
+    stopSpeech();
+    stopListening();
+  });
+
+})();
+</script>
+
+<!-- END VOICE EXPANSION 3 -->
+
 </body>
 </html>
