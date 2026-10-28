@@ -2578,6 +2578,60 @@ hr {
 })();
 </script>
 <!-- END ENCHANTED TEDDY WELCOME SCREEN -->
+<!-- TEDDY ROBOT BRIDGE: Future Raspberry Pi Integration -->
+<script>
+(function () {
+  "use strict";
+
+  window.TeddyRobot = {
+    connected: false,
+    currentExpression: "happy",
+    currentStatus: "online",
+
+    setExpression: function (expression) {
+      this.currentExpression = expression;
+
+      window.dispatchEvent(
+        new CustomEvent("teddy:expression", {
+          detail: { expression: expression }
+        })
+      );
+
+      console.log("Teddy expression:", expression);
+    },
+
+    setStatus: function (status) {
+      this.currentStatus = status;
+
+      window.dispatchEvent(
+        new CustomEvent("teddy:status", {
+          detail: { status: status }
+        })
+      );
+
+      console.log("Teddy status:", status);
+    },
+
+    sendSpeech: function (text) {
+      window.dispatchEvent(
+        new CustomEvent("teddy:speech", {
+          detail: { text: String(text || "") }
+        })
+      );
+    },
+
+    getState: function () {
+      return {
+        connected: this.connected,
+        expression: this.currentExpression,
+        status: this.currentStatus
+      };
+    }
+  };
+
+  console.log("Teddy Robot Bridge ready!");
+})();
+</script>
 </body>
 </html>
 
