@@ -489,6 +489,647 @@ function addMessage(text, type) {
   return bubble;
 }
 </script>
+<!-- AI COMPANION ADD-ON: PERSONALITY, VOICE & THERAPY TOOLS -->
+<style>
+  #companion-addons {
+    --bear-purple: #8b69bd;
+    --bear-light: #f4edff;
+    --bear-text: #392b4c;
+    font-family: Arial, sans-serif;
+    color: var(--bear-text);
+    margin: 22px auto;
+    max-width: 760px;
+    padding: 16px;
+    border: 1px solid #dfd0f4;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #fcf9ff, #f0e7ff);
+    box-shadow: 0 5px 20px #6d4c8b18;
+    position: relative;
+    z-index: 5;
+  }
+  #companion-addons * { box-sizing: border-box; }
+  #companion-addons h2 {
+    margin: 0 0 8px;
+    font-size: 23px;
+  }
+#companion-addons h3 {
+    font-size: 16px;
+    margin: 0 0 10px;
+  }
+#companion-addons p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
 
+  #companion-addons .bear-section {
+    background: white;
+    border: 1px solid #e8dcf5;
+    border-radius: 15px;
+    padding: 14px;
+    margin-top: 13px;
+  }
+
+  #companion-addons button,
+  #companion-addons select,
+  #companion-addons textarea {
+    font: inherit;
+  }
+
+   #companion-addons button {
+    border: 0;
+    border-radius: 11px;
+    background: var(--bear-purple);
+    color: white;
+    padding: 11px 13px;
+    cursor: pointer;
+    margin: 4px 3px 4px 0;
+    font-size: 13px;
+  }
+
+  #companion-addons button:hover {
+    filter: brightness(.95);
+  }
+
+  #companion-addons button:focus-visible,
+  #companion-addons select:focus-visible,
+  #companion-addons textarea:focus-visible {
+    outline: 3px solid #bba0e4;
+    outline-offset: 2px;
+  }
+
+  #companion-addons .bear-secondary {
+    color: #553d72;
+    background: #eee4fb;
+  }
+
+  #companion-addons select,
+  #companion-addons textarea {
+    width: 100%;
+    border: 1px solid #d9c9ed;
+    border-radius: 10px;
+    padding: 10px;
+    background: #fff;
+    color: #392b4c;
+    margin: 5px 0 9px;
+  }
+
+  #companion-addons textarea {
+    min-height: 85px;
+    resize: vertical;
+  }
+
+  #companion-addons .bear-status {
+    color: #644b7b;
+    font-size: 12px;
+    min-height: 18px;
+    margin-top: 7px;
+  }
+
+  #companion-addons .bear-moods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  #companion-addons .bear-moods button {
+    flex: 1 1 85px;
+    background: #eee4fb;
+    color: #49345e;
+    padding: 12px 6px;
+  }
+
+  #companion-addons .bear-note {
+    color: #756482;
+    font-size: 12px;
+  }
+
+  @media (max-width: 480px) {
+    #companion-addons { padding: 11px; }
+    #companion-addons button { max-width: 100%; }
+  }
+</style>
+
+  <section id="companion-addons" aria-label="AI companion extra features">
+  <div style="text-align:center;padding:8px 4px 12px">
+    <div style="font-size:45px" aria-hidden="true">🧸</div>
+    <h2>Your Cozy Companion</h2>
+    <p style="margin-bottom:0">
+      A little space to talk, reflect, and take care of yourself.
+    </p>
+  </div>
+
+<!-- PERSONALITY -->
+  <section class="bear-section">
+    <h3>💜 Companion personality</h3>
+    <p>
+      Your companion's guiding personality is gentle, patient, curious,
+      compassionate, and encouraging. It listens without judgment, respects
+      your boundaries, and helps you think through difficult feelings
+      without telling you what you must feel.
+    </p>    
+    
+<label for="bear-personality"><strong>Choose a conversation style</strong></label>
+    <select id="bear-personality">
+      <option value="gentle">Gentle and comforting</option>
+      <option value="thoughtful">Thoughtful and reflective</option>
+      <option value="cheerful">Warm and cheerful</option>
+      <option value="practical">Practical and step-by-step</option>
+    </select>
+
+        <button type="button" id="bear-personality-apply">
+      Use this personality
+    </button>
+    <p class="bear-note">
+      This adds your chosen style to the next message you send. It does not
+      change the AI model or its permanent backend settings.
+    </p>
+  </section>
+!-- VOICE -->
+  <section class="bear-section">
+    <h3>🔊 Talk with your companion</h3>
+    <p>
+      You can have supported browsers read a response aloud or use your
+      microphone to dictate a message.
+    </p>
+
+    <button type="button" id="bear-read">
+      🔊 Read latest response
+    </button>
+
+    <button type="button" id="bear-stop" class="bear-secondary">
+      ⏹ Stop speaking
+    </button>
+
+    <button type="button" id="bear-listen">
+      🎙️ Start voice input
+    </button>
+<p class="bear-note">
+      Your browser may ask for microphone permission. Speech recognition
+      availability varies by browser and device.
+    </p>
+    <div id="bear-voice-status" class="bear-status" role="status"
+         aria-live="polite">
+      Voice features are ready to try.
+    </div>
+  </section>
+
+  <!-- MOOD CHECK-IN -->
+  <section class="bear-section">
+    <h3>🌷 How are you feeling?</h3>
+    <p>Choose whichever feeling fits you best right now. You can also skip this.</p>
+
+    <div class="bear-moods">
+      <button type="button" data-bear-mood="happy">😊 Happy</button>
+      <button type="button" data-bear-mood="calm">🌿 Calm</button>
+      <button type="button" data-bear-mood="anxious">🌧️ Anxious</button>
+      <button type="button" data-bear-mood="sad">💧 Sad</button>
+      <button type="button" data-bear-mood="angry">🌋 Angry</button>
+      <button type="button" data-bear-mood="overwhelmed">☁️ Overwhelmed</button>
+      <button type="button" data-bear-mood="unsure">💭 Not sure</button>
+    </div>
+
+    <div id="bear-mood-result" class="bear-status" role="status"
+         aria-live="polite"></div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="bear-section">
+    <h3>📖 Guided journaling</h3>
+    <p>Write whatever is on your mind. You do not need to make it perfect.</p>
+
+    <label for="bear-journal-prompt"><strong>Choose a journal prompt</strong></label>
+    <select id="bear-journal-prompt">
+      <option value="What am I feeling right now, and what might be contributing to it?">
+    
+            Understand my feelings
+      </option>
+      <option value="What has been taking up the most space in my mind lately?">
+        Clear my mind
+      </option>
+      <option value="What is one thing I need today, and what is a small way to meet that need?">
+        Understand what I need
+      </option>
+      <option value="What is within my control today, and what can I allow to remain uncertain?">
+        Separate what I can control
+      </option>
+      <option value="What would I say to someone I care about who was experiencing what I am experiencing?">
+        Practice self-compassion
+      </option>
+      <option value="What is one small thing I would like to make time for this week?">
+        Reflect on my goals
+      </option>
+    </select>
+    <textarea id="bear-journal" placeholder="Write your thoughts here..."></textarea>
+
+    <button type="button" id="bear-journal-send">
+      Discuss my reflection
+    </button>
+    <button type="button" id="bear-journal-clear" class="bear-secondary">
+      Clear journal
+    </button>
+
+    <p class="bear-note">
+      Your writing stays in this box until you choose to discuss it. This
+      add-on does not save journal entries permanently.
+    </p>
+  </section>
+
+  <!-- GROUNDING -->
+  <section class="bear-section">
+    <h3>🍃 A grounding exercise</h3>
+    <p>
+      If you feel overwhelmed, try gently bringing your attention to the
+      present moment. There is no need to force yourself to feel calm.
+    </p>
+ <ol style="font-size:14px;line-height:1.9;padding-left:22px">
+      <li>Name five things you can see.</li>
+      <li>Notice four things you can physically feel.</li>
+      <li>Identify three sounds you can hear.</li>
+      <li>Notice two scents, if any are present.</li>
+      <li>Name one taste or one thing you appreciate in this moment.</li>
+    </ol>
+
+    <button type="button" id="bear-grounding">
+      Talk through this exercise
+    </button>
+  </section>
+    <!-- BREATHING -->
+  <section class="bear-section">
+    <h3>🌬️ Gentle breathing break</h3>
+    <p>
+      Let your breathing remain comfortable. If focusing on breathing feels
+      uncomfortable, skip this exercise and try noticing objects around you.
+    </p>
+     <div style="text-align:center;padding:12px">
+      <div id="bear-breath-circle"
+           style="width:100px;height:100px;border-radius:50%;
+           background:#e5d6fa;margin:0 auto 14px;
+           display:flex;align-items:center;justify-content:center;
+           font-size:14px;transition:transform 3s ease,background 3s ease">
+        Ready
+      </div>
+      <div id="bear-breath-status" role="status" aria-live="polite">
+        Take a comfortable breath whenever you are ready.
+      </div>
+    </div>
+    <button type="button" id="bear-breath-start">
+      Start breathing guide
+    </button>
+    <button type="button" id="bear-breath-stop" class="bear-secondary">
+      Stop exercise
+    </button>
+  </section>
+     <p class="bear-note" style="text-align:center;margin-top:15px">
+    These tools support reflection and coping. They do not diagnose
+    conditions or replace professional mental health care.
+  </p>
+</section>
+  <script>
+(function () {
+  "use strict";
+
+  const panel = document.getElementById("companion-addons");
+  if (!panel || panel.dataset.initialized === "yes") return;
+  panel.dataset.initialized = "yes";
+
+  const $ = (selector) => panel.querySelector(selector);
+
+  // Find the existing chat input without selecting this add-on's fields.
+  function findChatInput() {
+    const selectors = [
+      "#userInput",
+      "#messageInput",
+      "#chatInput",
+      "#chat-input",
+      "#message-input",
+      'form textarea',
+      'textarea:not(#bear-journal)',
+      'input[type="text"]'
+    ];
+
+    for (const selector of selectors) {
+      const candidates = document.querySelectorAll(selector);
+
+      for (const field of candidates) {
+        if (
+          panel.contains(field) ||
+          field.disabled ||
+          field.readOnly ||
+          field.type === "hidden"
+        ) continue;
+constrect = field.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) return field;
+      }
+    }
+
+    return null;
+  }
+
+  function setChatMessage(message) {
+    const field = findChatInput();
+
+    if (!field) {
+      alert(
+        "I couldn't find your existing chat box. Your original chat is unchanged. " +
+        "Please check your chat input's HTML ID."
+      );
+      return false;
+    }
+field.value = message;
+    field.dispatchEvent(new Event("input", { bubbles: true }));
+    field.dispatchEvent(new Event("change", { bubbles: true }));
+    field.focus();
+
+    const voiceStatus = $("#bear-voice-status");
+    if (voiceStatus) {
+      voiceStatus.textContent =
+        "Message added to your chat box. Review it and press your normal Send button.";
+    }
+
+    field.scrollIntoView({ behavior: "smooth", block: "center" });
+    return true;
+  }
+  // PERSONALITY: add the chosen guidance to the next message.
+  const personalityInstructions = {
+    gentle:
+      "Please respond in a gentle, patient, compassionate way. Validate feelings without assuming you know exactly how I feel.",
+    thoughtful:
+      "Please be thoughtful and reflective. Ask at most one useful question at a time and help me explore my thoughts without judgment.",
+    cheerful:
+      "Please be warm, hopeful, and lightly cheerful without dismissing my difficulties or forcing positivity.",
+    practical:
+      "Please give simple, clear, step-by-step suggestions. Focus on one manageable next step at a time."
+  };
+    let selectedPersonality = "gentle";
+
+  $("#bear-personality-apply").addEventListener("click", function () {
+    selectedPersonality = $("#bear-personality").value;
+    alert(
+      "Personality selected! Your next message will include the " +
+      selectedPersonality + " style. You can change it any time."
+    );
+  });
+  // Add a selected prompt to the existing chat box.
+  function sendReflection(prompt) {
+    const instruction = personalityInstructions[selectedPersonality];
+    return setChatMessage(
+      instruction + "\n\n" + prompt
+    );
+  }
+  // MOOD CHECK-IN
+  panel.querySelectorAll("[data-bear-mood]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      const mood = button.dataset.bearMood;
+
+      $("#bear-mood-result").textContent =
+
+                "You chose: " + mood + ". You can explore this feeling in your chat.";
+
+      sendReflection(
+        "I'd like to check in with myself. Right now, I feel " + mood +
+        ". Please help me explore this feeling gently, without assuming why I feel this way."
+      );
+    });
+  });
+
+  // JOURNAL
+  $("#bear-journal-send").addEventListener("click", function () {
+    const entry = $("#bear-journal").value.trim();
+
+    if (!entry) {
+      alert("Write a little reflection first, or choose another tool.");
+      return;
+    }
+
+const prompt = $("#bear-journal-prompt").value;
+
+    sendReflection(
+      "I'd like help reflecting on my journal. Here is the prompt: " +
+      prompt + "\n\nMy reflection:\n" + entry +
+      "\n\nPlease help me reflect without judging me or making assumptions."
+    );
+  });
+
+  $("#bear-journal-clear").addEventListener("click", function () {
+    $("#bear-journal").value = "";
+    $("#bear-journal").focus();
+  });
+
+  // GROUNDING
+  $("#bear-grounding").addEventListener("click", function () {
+    sendReflection(
+      "Please guide me through a gentle present-moment grounding exercise, " +
+      "one step at a time. Wait for my response after each step. " +
+      "Do not rush me or assume I am in a crisis."
+    );
+  });
+  // VOICE: read the most recent likely assistant message.
+  function getLatestAssistantMessage() {
+    const selectors = [
+      ".assistant-message",
+      ".bot-message",
+      ".ai-message",
+      "[data-role='assistant']",
+      ".message.assistant",
+      ".chat-message.assistant",
+      "#chatMessages .message",
+      "#chat-messages .message",
+      "#chatBox .message",
+      "#chatbox .message",
+      ".chat-container .message"
+    ];
+for (const selector of selectors) {
+      const nodes = Array.from(document.querySelectorAll(selector))
+        .filter(node => !panel.contains(node));
+
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        const node = nodes[i];
+        const role = (
+          node.getAttribute("data-role") ||
+          node.className ||
+          ""
+        ).toString().toLowerCase();
+
+        if (
+          role.includes("user") ||
+          role.includes("human") ||
+          role.includes("you")
+        ) continue;
+
+        const text = (node.innerText || node.textContent || "").trim();
+        if (text) return text;
+      }
+    }
+
+    // Fallback: use selected text if the message layout is unknown.
+    return (window.getSelection && window.getSelection().toString().trim()) || "";
+  }
+$("#bear-read").addEventListener("click", function () {
+    if (!("speechSynthesis" in window)) {
+      $("#bear-voice-status").textContent =
+        "Your browser does not support text-to-speech.";
+      return;
+    }
+
+    const message = getLatestAssistantMessage();
+
+    if (!message) {
+      $("#bear-voice-status").textContent =
+        "I couldn't identify a response. Select a response's text and try again.";
+      return;
+    }
+window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(message);
+    utterance.lang = "en-US";
+    utterance.rate = 0.92;
+    utterance.pitch = 1.05;
+
+    utterance.onstart = function () {
+      $("#bear-voice-status").textContent = "Reading aloud...";
+    };
+utterance.onend = function () {
+      $("#bear-voice-status").textContent = "Finished reading.";
+    };
+
+    utterance.onerror = function () {
+      $("#bear-voice-status").textContent =
+        "Speech playback stopped or could not start.";
+    };
+
+    window.speechSynthesis.speak(utterance);
+  });
+  $("#bear-stop").addEventListener("click", function () {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    $("#bear-voice-status").textContent = "Speech stopped.";
+  });
+
+  // VOICE INPUT: dictate into the existing chat box.
+  let recognition = null;
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  $("#bear-listen").addEventListener("click", function () {
+    if (!SpeechRecognition) {
+      $("#bear-voice-status").textContent =
+        "Voice input isn't supported by this browser. Try a supported browser or use your keyboard's dictation feature.";
+      return;
+    }
+try {
+      if (recognition) {
+        recognition.stop();
+        recognition = null;
+      } 
+recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = true;
+      recognition.continuous = false;
+
+      recognition.onstart = function () {
+        $("#bear-voice-status").textContent =
+          "Listening... Speak when you're ready.";
+      };
+
+      recognition.onresult = function (event) {
+        let transcript = "";
+
+        for (let i = 0; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+
+        const field = findChatInput();
+
+        if (field) {
+          field.value = transcript;
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+$("#bear-voice-status").textContent =
+          "Your words are in the chat box. Review them before sending.";
+      };
+
+      recognition.onerror = function (event) {
+        $("#bear-voice-status").textContent =
+          "Voice input issue: " + event.error +
+          ". You can still type your message.";
+      };
+
+      recognition.onend = function () {
+        if ($("#bear-voice-status").textContent.startsWith("Listening")) {
+          $("#bear-voice-status").textContent = "Voice input ended.";
+        }
+        recognition = null;
+      };
+
+      recognition.start();
+    } catch (error) {
+      $("#bear-voice-status").textContent =
+        "Couldn't start voice input. Check browser permissions and try again.";
+    }
+  });
+// BREATHING: a gentle timed visual guide.
+  let breathingTimer = null;
+  let breathingPhase = 0;
+
+  const breathingSteps = [
+    { label: "Breathe in gently", seconds: 3, scale: 1.2 },
+    { label: "Breathe out slowly", seconds: 4, scale: 1 }
+  ];
+
+  function stopBreathing() {
+    if (breathingTimer !== null) {
+      clearTimeout(breathingTimer);
+      breathingTimer = null;
+    }
+
+const circle = $("#bear-breath-circle");
+    circle.style.transform = "scale(1)";
+    circle.textContent = "Ready";
+
+    $("#bear-breath-status").textContent =
+      "Exercise paused. Return to normal breathing at your own pace.";
+  }
+  function runBreathingStep() {
+    const step = breathingSteps[breathingPhase];
+    const circle = $("#bear-breath-circle");
+
+    circle.textContent = step.label;
+    circle.style.transform = "scale(" + step.scale + ")";
+
+    $("#bear-breath-status").textContent =
+      step.label + ". Follow only if comfortable.";
+
+    breathingPhase = (breathingPhase + 1) % breathingSteps.length;
+
+    breathingTimer = setTimeout(runBreathingStep, step.seconds * 1000);
+  }
+  $("#bear-breath-start").addEventListener("click", function () {
+    stopBreathing();
+    breathingPhase = 0;
+    runBreathingStep();
+  });
+
+  $("#bear-breath-stop").addEventListener("click", stopBreathing);
+
+  // Keep timers and voice playback from continuing when the page is hidden.
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      stopBreathing();
+
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+
+      if (recognition) {
+        try { recognition.stop(); } catch (error) {}
+      }
+    }
+  });
+})();
+</script>
+<!-- END AI COMPANION ADD-ON -->
+
+  
 </body>
 </html>
