@@ -2580,3 +2580,300 @@ hr {
 <!-- END ENCHANTED TEDDY WELCOME SCREEN -->
 </body>
 </html>
+
+<style id="enchanted-forest-upgrade">
+/* ==========================================
+   ENCHANTED FAIRY FOREST — VISUAL UPGRADE
+   Adds styling only; preserves existing logic.
+   ========================================== */
+
+:root {
+  --fairy-cream: #fffaf0;
+  --fairy-sage: #c8d6b9;
+  --fairy-moss: #82966f;
+  --fairy-deep: #465b43;
+  --fairy-pink: #edcbd5;
+  --fairy-lilac: #ded5f0;
+  --fairy-gold: #e9d39b;
+  --fairy-ink: #4b5143;
+}
+
+/* Forest atmosphere behind the companion */
+body {
+  background:
+    radial-gradient(ellipse at 12% 20%,
+      rgba(255, 242, 203, 0.9), transparent 28%),
+    radial-gradient(ellipse at 88% 12%,
+      rgba(224, 214, 245, 0.8), transparent 32%),
+    radial-gradient(ellipse at 75% 85%,
+      rgba(193, 215, 174, 0.75), transparent 35%),
+    linear-gradient(145deg,
+      #f9f1e5 0%,
+      #e8eedf 48%,
+      #f3e4eb 100%) !important;
+  color: var(--fairy-ink);
+  background-attachment: fixed !important;
+}
+
+/* Soft, glowing forest light */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 22%,
+      rgba(255,255,220,.9) 0 2px, transparent 4px),
+    radial-gradient(circle at 84% 31%,
+      rgba(255,255,220,.85) 0 2px, transparent 5px),
+    radial-gradient(circle at 72% 75%,
+      rgba(255,255,220,.8) 0 2px, transparent 4px),
+    radial-gradient(circle at 25% 82%,
+      rgba(255,255,220,.8) 0 2px, transparent 5px),
+    radial-gradient(circle at 50% 12%,
+      rgba(255,255,255,.8) 0 3px, transparent 6px);
+  animation: fairyGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes fairyGlow {
+  from { opacity: .45; }
+  to { opacity: 1; }
+}
+
+/* Keep the existing interface above the background */
+.app,
+#companion-addons,
+#bear-voice-pro {
+  position: relative;
+  z-index: 1;
+}
+
+/* Main companion area becomes a cottage-inspired panel */
+.app {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 252, 244, .97),
+      rgba(247, 245, 231, .96)) !important;
+  border: 1px solid rgba(255,255,255,.9) !important;
+  border-radius: 30px !important;
+  box-shadow:
+    0 22px 60px rgba(79, 98, 69, .15),
+    0 5px 16px rgba(124, 102, 115, .08),
+    inset 0 0 0 5px rgba(255,255,255,.25) !important;
+  overflow: hidden;
+}
+
+/* Mossy green header */
+.app header {
+  background:
+    linear-gradient(115deg,
+      #dce7cf,
+      #e9e8d5 55%,
+      #f0dce3) !important;
+  color: var(--fairy-deep) !important;
+  border-bottom: 1px solid rgba(114, 137, 100, .2) !important;
+}
+
+/* Friendly title styling */
+.app h1,
+.app h2 {
+  color: var(--fairy-deep) !important;
+  letter-spacing: .3px;
+}
+
+/* Teddy display: gentle garden frame */
+#teddy,
+.teddy,
+#teddy-container,
+.teddy-container {
+  border-radius: 28px;
+}
+
+/* Chat background resembles a sunlit cottage room */
+#chat {
+  background:
+    radial-gradient(ellipse at top,
+      rgba(255,255,255,.8),
+      transparent 70%),
+    linear-gradient(180deg,
+      #f9f7ed,
+      #f0f1e5) !important;
+  border: 1px solid rgba(154, 173, 133, .25) !important;
+  border-radius: 22px !important;
+  padding: 16px !important;
+}
+
+/* Soft, natural conversation bubbles */
+#chat .user,
+#chat .user-message,
+#chat .message.user {
+  background: linear-gradient(135deg,
+    #d9e5cd, #c7d8b9) !important;
+  color: #344633 !important;
+  border: 1px solid rgba(104, 135, 91, .16);
+  border-radius: 20px 20px 5px 20px !important;
+}
+
+#chat .assistant,
+#chat .bot,
+#chat .bot-message,
+#chat .message.assistant,
+#chat .message.bot {
+  background: linear-gradient(135deg,
+    #fffdf6, #f7edf1) !important;
+  color: #514b4d !important;
+  border: 1px solid rgba(218, 192, 202, .45);
+  border-radius: 20px 20px 20px 5px !important;
+  box-shadow: 0 3px 12px rgba(95, 94, 72, .04);
+}
+
+/* Gentle inputs */
+.app input,
+.app textarea,
+.app select,
+#companion-addons input,
+#companion-addons textarea,
+#bear-voice-pro input,
+#bear-voice-pro textarea {
+  background: rgba(255, 253, 247, .96) !important;
+  color: var(--fairy-ink) !important;
+  border: 1px solid #d6dfca !important;
+  border-radius: 16px !important;
+  outline-color: #a8bd92;
+}
+
+.app input:focus,
+.app textarea:focus,
+.app select:focus,
+#companion-addons input:focus,
+#companion-addons textarea:focus {
+  border-color: #9aaf83 !important;
+  box-shadow: 0 0 0 3px rgba(154, 175, 131, .16) !important;
+}
+
+/* Cottage buttons */
+.app button,
+#companion-addons button,
+#bear-voice-pro button {
+  background: linear-gradient(135deg,
+    #8ca47a, #6f8962) !important;
+  color: #fffdf5 !important;
+  border: 1px solid rgba(255,255,255,.55) !important;
+  border-radius: 15px !important;
+  box-shadow: 0 4px 10px rgba(79, 105, 67, .12);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    filter .2s ease;
+}
+
+.app button:hover,
+#companion-addons button:hover,
+#bear-voice-pro button:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 6px 15px rgba(79, 105, 67, .18);
+  transform: translateY(-1px);
+}
+
+/* Selected expression buttons */
+.app button[aria-pressed="true"],
+.app button.active,
+.app button.selected {
+  background: linear-gradient(135deg,
+    #d9c9ed, #c8b7e0) !important;
+  color: #4d4260 !important;
+}
+
+/* Tool panels become little garden cottages */
+#companion-addons,
+#bear-voice-pro {
+  margin-top: 24px !important;
+  padding: 22px !important;
+  background:
+    linear-gradient(145deg,
+      rgba(255, 252, 242, .94),
+      rgba(239, 243, 229, .94)) !important;
+  border: 1px solid rgba(255,255,255,.9) !important;
+  border-radius: 26px !important;
+  box-shadow: 0 14px 36px rgba(81, 101, 72, .10) !important;
+  color: var(--fairy-ink);
+}
+
+/* Make tool headings feel gentle */
+#companion-addons h2,
+#companion-addons h3,
+#bear-voice-pro h2,
+#bear-voice-pro h3 {
+  color: var(--fairy-deep) !important;
+}
+
+/* Small floral details around tool headings */
+#companion-addons h2::after,
+#companion-addons h3::after,
+#bear-voice-pro h2::after,
+#bear-voice-pro h3::after {
+  content: "  ✿";
+  color: #c28fa8;
+}
+
+/* Small decorative sparkles on the page */
+#companion-addons::before {
+  content: "✧  ·  ✿  ·  ✧";
+  display: block;
+  text-align: center;
+  margin: 0 auto 14px;
+  color: #b49bc9;
+  letter-spacing: 9px;
+  font-size: 15px;
+}
+
+/* Gentle borders for common cards and sections */
+#companion-addons section,
+#companion-addons article,
+#companion-addons .card,
+#companion-addons .panel,
+#bear-voice-pro section,
+#bear-voice-pro article,
+#bear-voice-pro .card,
+#bear-voice-pro .panel {
+  border-color: rgba(151, 172, 130, .35) !important;
+  border-radius: 19px !important;
+}
+
+/* Keep images softly framed */
+.app img {
+  object-fit: contain;
+}
+
+/* Phone-friendly spacing */
+@media (max-width: 600px) {
+  .app {
+    border-radius: 22px !important;
+    margin: 8px auto !important;
+  }
+
+  #companion-addons,
+  #bear-voice-pro {
+    padding: 15px !important;
+    border-radius: 21px !important;
+  }
+
+  #chat {
+    padding: 11px !important;
+  }
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+
+  .app button,
+  #companion-addons button,
+  #bear-voice-pro button {
+    transition: none;
+  }
+}
+</style>
