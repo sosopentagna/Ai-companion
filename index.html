@@ -3207,3 +3207,685 @@ body::after {
   }
 }
 </style>
+
+<style id="fairy-world-final-layout">
+/* ==========================================
+   FAIRY WORLD — COMPLETE LAYOUT OVERRIDE
+   Keeps existing HTML, features and AI logic.
+   ========================================== */
+
+:root {
+  --fairy-cream: #fffaf0;
+  --fairy-sage: #dce8d0;
+  --fairy-moss: #879d76;
+  --fairy-forest: #425a42;
+  --fairy-pink: #edcfda;
+  --fairy-lilac: #dfd4f0;
+  --fairy-gold: #e8d39a;
+}
+
+/* PAGE */
+body {
+  display: block !important;
+  min-height: 100vh !important;
+  padding: 42px 20px 70px !important;
+  margin: 0 !important;
+  background:
+    radial-gradient(ellipse at 8% 10%,
+      #fff0c9 0%, transparent 32%),
+    radial-gradient(ellipse at 90% 15%,
+      #e3d7f2 0%, transparent 34%),
+    radial-gradient(ellipse at 85% 90%,
+      #f1d8e1 0%, transparent 35%),
+    radial-gradient(ellipse at 10% 85%,
+      #c8dabb 0%, transparent 36%),
+    linear-gradient(145deg,
+      #f8f0e4, #edf1e5 48%, #f5e8ed) !important;
+  background-attachment: fixed !important;
+  color: var(--fairy-forest);
+}
+
+/* FLOATING DECORATION */
+body::before {
+  content: "✧  ·  ✿  ·  ❀  ·  ✧  ·  ✿  ·  ❀";
+  position: fixed;
+  top: 12px;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  text-align: center;
+  pointer-events: none;
+  color: #b19ac5;
+  font-size: 17px;
+  letter-spacing: 6px;
+  animation: fairyShimmer 5s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "✿";
+  position: fixed;
+  right: 24px;
+  bottom: 18px;
+  z-index: 0;
+  pointer-events: none;
+  color: #bd94a8;
+  font-size: 52px;
+  opacity: .55;
+  animation: fairyDrift 7s ease-in-out infinite;
+}
+
+@keyframes fairyShimmer {
+  from { opacity: .35; }
+  to { opacity: .95; }
+}
+
+@keyframes fairyDrift {
+  0%, 100% { transform: translateY(0) rotate(-12deg); }
+  50% { transform: translateY(-15px) rotate(12deg); }
+}
+
+/* THE MAIN COMPANION CARD */
+.app {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  float: none !important;
+  width: min(100%, 1000px) !important;
+  max-width: 1000px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto 26px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: rgba(255, 251, 241, .96) !important;
+  border: 1px solid rgba(255,255,255,.95) !important;
+  border-radius: 32px !important;
+  box-shadow:
+    0 25px 70px rgba(66, 87, 58, .15),
+    0 5px 20px rgba(130, 105, 125, .08) !important;
+}
+
+/* HEADER */
+.app header {
+  background:
+    linear-gradient(115deg,
+      #dce8d1, #f4e8e0 55%, #e8dcef) !important;
+  color: var(--fairy-forest) !important;
+  border-bottom: 1px solid #e5e6d7 !important;
+  padding: 20px 24px !important;
+}
+
+/* CENTER THE TEDDY AREA */
+#teddy-container,
+.teddy-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  background:
+    radial-gradient(ellipse,
+      #e7eddc 0%, #f4e9e7 58%, transparent 78%) !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+}
+
+/* REMOVE THE HARSH WHITE BOX AROUND THE TEDDY */
+.app img {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+}
+
+/* CHAT */
+#chat {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 180px;
+  max-height: 440px;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+  padding: 20px !important;
+  background:
+    linear-gradient(180deg, #fffdf6, #f0f3e8) !important;
+  border: 1px solid #dce5d2 !important;
+  border-radius: 22px !important;
+}
+
+/* CHAT BUBBLES */
+#chat .user,
+#chat .user-message,
+#chat .message.user {
+  align-self: flex-end;
+  max-width: 85%;
+  background: linear-gradient(135deg,
+    #dce8d1, #cbdcbe) !important;
+  color: #354a34 !important;
+  border: 1px solid #cbdcc0 !important;
+  border-radius: 20px 20px 5px 20px !important;
+  padding: 12px 16px !important;
+}
+
+#chat .assistant,
+#chat .bot,
+#chat .bot-message,
+#chat .message.assistant,
+#chat .message.bot {
+  align-self: flex-start;
+  max-width: 88%;
+  background: linear-gradient(135deg,
+    #fffdf7, #f6eaf0) !important;
+  color: #514b4d !important;
+  border: 1px solid #ead8e0 !important;
+  border-radius: 20px 20px 20px 5px !important;
+  padding: 12px 16px !important;
+}
+
+/* CHAT FORM AND INPUTS */
+.app form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px !important;
+}
+
+.app input,
+.app textarea,
+.app select,
+#companion-addons input,
+#companion-addons textarea,
+#companion-addons select,
+#bear-voice-pro input,
+#bear-voice-pro textarea,
+#bear-voice-pro select {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  background: #fffdf7 !important;
+  color: #4b5143 !important;
+  border: 1px solid #d6e0cb !important;
+  border-radius: 14px !important;
+}
+
+.app button,
+#companion-addons button,
+#bear-voice-pro button {
+  background: linear-gradient(135deg,
+    #91a981, #718d65) !important;
+  color: #fffdf6 !important;
+  border: 1px solid rgba(255,255,255,.7) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 12px rgba(69,92,59,.12);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.app button:hover,
+#companion-addons button:hover,
+#bear-voice-pro button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 15px rgba(69,92,59,.17);
+}
+
+/* PERSONALITY AND THERAPY TOOLS */
+#companion-addons,
+#bear-voice-pro {
+  position: relative !important;
+  z-index: 1 !important;
+  display: block !important;
+  float: none !important;
+  clear: both !important;
+  width: min(100%, 1000px) !important;
+  max-width: 1000px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 26px auto !important;
+  padding: 28px !important;
+  box-sizing: border-box !important;
+  background:
+    radial-gradient(ellipse at top right,
+      rgba(237,207,218,.28), transparent 48%),
+    linear-gradient(145deg,
+      rgba(255,252,243,.98),
+      rgba(238,243,230,.98)) !important;
+  border: 1px solid rgba(255,255,255,.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 15px 42px rgba(66,87,58,.11) !important;
+  color: var(--fairy-forest) !important;
+}
+
+/* SECTION HEADINGS */
+#companion-addons h2,
+#companion-addons h3,
+#bear-voice-pro h2,
+#bear-voice-pro h3 {
+  color: var(--fairy-forest) !important;
+  line-height: 1.4;
+}
+
+#companion-addons h2::after,
+#companion-addons h3::after,
+#bear-voice-pro h2::after,
+#bear-voice-pro h3::after {
+  content: "  ✿";
+  color: #c28fa8;
+}
+
+/* INDIVIDUAL TOOL CARDS */
+#companion-addons section,
+#companion-addons article,
+#companion-addons .card,
+#companion-addons .panel,
+#bear-voice-pro section,
+#bear-voice-pro article,
+#bear-voice-pro .card,
+#bear-voice-pro .panel {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  border: 1px solid rgba(163,184,144,.4) !important;
+  border-radius: 20px !important;
+}
+
+/* DO NOT CHANGE THE WELCOME SCREEN */
+#teddy-welcome {
+  z-index: 9999 !important;
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+  body {
+    padding: 34px 10px 42px !important;
+  }
+
+  .app {
+    width: 100% !important;
+    border-radius: 23px !important;
+  }
+
+  #companion-addons,
+  #bear-voice-pro {
+    width: 100% !important;
+    padding: 17px !important;
+    border-radius: 22px !important;
+  }
+
+  #chat {
+    padding: 12px !important;
+  }
+
+  .app form {
+    padding: 12px !important;
+  }
+
+  body::before {
+    font-size: 13px;
+    letter-spacing: 3px;
+  }
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+
+  .app button,
+  #companion-addons button,
+  #bear-voice-pro button {
+    transition: none !important;
+  }
+}
+</style>
+
+<style id="fairy-world-final-layout">
+/* ==========================================
+   FAIRY WORLD — COMPLETE LAYOUT OVERRIDE
+   Keeps existing HTML, features and AI logic.
+   ========================================== */
+
+:root {
+  --fairy-cream: #fffaf0;
+  --fairy-sage: #dce8d0;
+  --fairy-moss: #879d76;
+  --fairy-forest: #425a42;
+  --fairy-pink: #edcfda;
+  --fairy-lilac: #dfd4f0;
+  --fairy-gold: #e8d39a;
+}
+
+/* PAGE */
+body {
+  display: block !important;
+  min-height: 100vh !important;
+  padding: 42px 20px 70px !important;
+  margin: 0 !important;
+  background:
+    radial-gradient(ellipse at 8% 10%,
+      #fff0c9 0%, transparent 32%),
+    radial-gradient(ellipse at 90% 15%,
+      #e3d7f2 0%, transparent 34%),
+    radial-gradient(ellipse at 85% 90%,
+      #f1d8e1 0%, transparent 35%),
+    radial-gradient(ellipse at 10% 85%,
+      #c8dabb 0%, transparent 36%),
+    linear-gradient(145deg,
+      #f8f0e4, #edf1e5 48%, #f5e8ed) !important;
+  background-attachment: fixed !important;
+  color: var(--fairy-forest);
+}
+
+/* FLOATING DECORATION */
+body::before {
+  content: "✧  ·  ✿  ·  ❀  ·  ✧  ·  ✿  ·  ❀";
+  position: fixed;
+  top: 12px;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  text-align: center;
+  pointer-events: none;
+  color: #b19ac5;
+  font-size: 17px;
+  letter-spacing: 6px;
+  animation: fairyShimmer 5s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "✿";
+  position: fixed;
+  right: 24px;
+  bottom: 18px;
+  z-index: 0;
+  pointer-events: none;
+  color: #bd94a8;
+  font-size: 52px;
+  opacity: .55;
+  animation: fairyDrift 7s ease-in-out infinite;
+}
+
+@keyframes fairyShimmer {
+  from { opacity: .35; }
+  to { opacity: .95; }
+}
+
+@keyframes fairyDrift {
+  0%, 100% { transform: translateY(0) rotate(-12deg); }
+  50% { transform: translateY(-15px) rotate(12deg); }
+}
+
+/* THE MAIN COMPANION CARD */
+.app {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  float: none !important;
+  width: min(100%, 1000px) !important;
+  max-width: 1000px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto 26px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: rgba(255, 251, 241, .96) !important;
+  border: 1px solid rgba(255,255,255,.95) !important;
+  border-radius: 32px !important;
+  box-shadow:
+    0 25px 70px rgba(66, 87, 58, .15),
+    0 5px 20px rgba(130, 105, 125, .08) !important;
+}
+
+/* HEADER */
+.app header {
+  background:
+    linear-gradient(115deg,
+      #dce8d1, #f4e8e0 55%, #e8dcef) !important;
+  color: var(--fairy-forest) !important;
+  border-bottom: 1px solid #e5e6d7 !important;
+  padding: 20px 24px !important;
+}
+
+/* CENTER THE TEDDY AREA */
+#teddy-container,
+.teddy-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  background:
+    radial-gradient(ellipse,
+      #e7eddc 0%, #f4e9e7 58%, transparent 78%) !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+}
+
+/* REMOVE THE HARSH WHITE BOX AROUND THE TEDDY */
+.app img {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+}
+
+/* CHAT */
+#chat {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 180px;
+  max-height: 440px;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+  padding: 20px !important;
+  background:
+    linear-gradient(180deg, #fffdf6, #f0f3e8) !important;
+  border: 1px solid #dce5d2 !important;
+  border-radius: 22px !important;
+}
+
+/* CHAT BUBBLES */
+#chat .user,
+#chat .user-message,
+#chat .message.user {
+  align-self: flex-end;
+  max-width: 85%;
+  background: linear-gradient(135deg,
+    #dce8d1, #cbdcbe) !important;
+  color: #354a34 !important;
+  border: 1px solid #cbdcc0 !important;
+  border-radius: 20px 20px 5px 20px !important;
+  padding: 12px 16px !important;
+}
+
+#chat .assistant,
+#chat .bot,
+#chat .bot-message,
+#chat .message.assistant,
+#chat .message.bot {
+  align-self: flex-start;
+  max-width: 88%;
+  background: linear-gradient(135deg,
+    #fffdf7, #f6eaf0) !important;
+  color: #514b4d !important;
+  border: 1px solid #ead8e0 !important;
+  border-radius: 20px 20px 20px 5px !important;
+  padding: 12px 16px !important;
+}
+
+/* CHAT FORM AND INPUTS */
+.app form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px !important;
+}
+
+.app input,
+.app textarea,
+.app select,
+#companion-addons input,
+#companion-addons textarea,
+#companion-addons select,
+#bear-voice-pro input,
+#bear-voice-pro textarea,
+#bear-voice-pro select {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  background: #fffdf7 !important;
+  color: #4b5143 !important;
+  border: 1px solid #d6e0cb !important;
+  border-radius: 14px !important;
+}
+
+.app button,
+#companion-addons button,
+#bear-voice-pro button {
+  background: linear-gradient(135deg,
+    #91a981, #718d65) !important;
+  color: #fffdf6 !important;
+  border: 1px solid rgba(255,255,255,.7) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 12px rgba(69,92,59,.12);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.app button:hover,
+#companion-addons button:hover,
+#bear-voice-pro button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 15px rgba(69,92,59,.17);
+}
+
+/* PERSONALITY AND THERAPY TOOLS */
+#companion-addons,
+#bear-voice-pro {
+  position: relative !important;
+  z-index: 1 !important;
+  display: block !important;
+  float: none !important;
+  clear: both !important;
+  width: min(100%, 1000px) !important;
+  max-width: 1000px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 26px auto !important;
+  padding: 28px !important;
+  box-sizing: border-box !important;
+  background:
+    radial-gradient(ellipse at top right,
+      rgba(237,207,218,.28), transparent 48%),
+    linear-gradient(145deg,
+      rgba(255,252,243,.98),
+      rgba(238,243,230,.98)) !important;
+  border: 1px solid rgba(255,255,255,.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 15px 42px rgba(66,87,58,.11) !important;
+  color: var(--fairy-forest) !important;
+}
+
+/* SECTION HEADINGS */
+#companion-addons h2,
+#companion-addons h3,
+#bear-voice-pro h2,
+#bear-voice-pro h3 {
+  color: var(--fairy-forest) !important;
+  line-height: 1.4;
+}
+
+#companion-addons h2::after,
+#companion-addons h3::after,
+#bear-voice-pro h2::after,
+#bear-voice-pro h3::after {
+  content: "  ✿";
+  color: #c28fa8;
+}
+
+/* INDIVIDUAL TOOL CARDS */
+#companion-addons section,
+#companion-addons article,
+#companion-addons .card,
+#companion-addons .panel,
+#bear-voice-pro section,
+#bear-voice-pro article,
+#bear-voice-pro .card,
+#bear-voice-pro .panel {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  border: 1px solid rgba(163,184,144,.4) !important;
+  border-radius: 20px !important;
+}
+
+/* DO NOT CHANGE THE WELCOME SCREEN */
+#teddy-welcome {
+  z-index: 9999 !important;
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+  body {
+    padding: 34px 10px 42px !important;
+  }
+
+  .app {
+    width: 100% !important;
+    border-radius: 23px !important;
+  }
+
+  #companion-addons,
+  #bear-voice-pro {
+    width: 100% !important;
+    padding: 17px !important;
+    border-radius: 22px !important;
+  }
+
+  #chat {
+    padding: 12px !important;
+  }
+
+  .app form {
+    padding: 12px !important;
+  }
+
+  body::before {
+    font-size: 13px;
+    letter-spacing: 3px;
+  }
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+
+  .app button,
+  #companion-addons button,
+  #bear-voice-pro button {
+    transition: none !important;
+  }
+}
+</style>
