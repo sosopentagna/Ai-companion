@@ -817,7 +817,7 @@ function addMessage(text, type) {
           field.readOnly ||
           field.type === "hidden"
         ) continue;
-constrect = field.getBoundingClientRect();
+const rect = field.getBoundingClientRect();
         if (rect.width > 0 && rect.height > 0) return field;
       }
     }
