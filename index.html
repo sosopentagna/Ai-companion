@@ -2877,3 +2877,333 @@ body::before {
   }
 }
 </style>
+
+
+<style id="fairy-world-layout-redesign">
+/* =========================================
+   FAIRY WORLD — LAYOUT REDESIGN
+   Visual changes only. Keeps existing logic.
+   ========================================= */
+
+:root {
+  --fw-cream: #fffaf0;
+  --fw-paper: #faf7ed;
+  --fw-sage: #dce6d0;
+  --fw-moss: #819772;
+  --fw-forest: #405940;
+  --fw-pink: #e7c4d1;
+  --fw-lilac: #dcd0ed;
+  --fw-gold: #e9d6a3;
+  --fw-shadow: rgba(65, 84, 56, .12);
+}
+
+/* A continuous dreamy background */
+body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 26px !important;
+  padding: 34px 22px 70px !important;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 8% 8%,
+      rgba(255, 241, 199, .95), transparent 32%),
+    radial-gradient(ellipse at 92% 14%,
+      rgba(220, 208, 237, .75), transparent 30%),
+    radial-gradient(ellipse at 90% 82%,
+      rgba(231, 196, 209, .58), transparent 32%),
+    radial-gradient(ellipse at 10% 85%,
+      rgba(183, 207, 162, .65), transparent 36%),
+    linear-gradient(145deg,
+      #f8f0e2, #edf0e2 48%, #f4e7ec) !important;
+  background-attachment: fixed !important;
+}
+
+/* Decorative fairy lights */
+body::before {
+  content: "✧     ·     ✿     ·     ✧     ·     ❀     ·     ✧";
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  pointer-events: none;
+  text-align: center;
+  color: #b6a0c9;
+  font-size: 18px;
+  letter-spacing: 7px;
+  opacity: .7;
+  animation: fwTwinkle 4s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "✿";
+  position: fixed;
+  right: 4%;
+  bottom: 7%;
+  z-index: 0;
+  pointer-events: none;
+  color: rgba(191, 151, 174, .45);
+  font-size: 58px;
+  animation: fwFloat 6s ease-in-out infinite;
+}
+
+@keyframes fwTwinkle {
+  from { opacity: .35; }
+  to { opacity: .9; }
+}
+
+@keyframes fwFloat {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-14px) rotate(8deg); }
+}
+
+/* Put the companion and its tools into one vertical experience */
+.app,
+#companion-addons,
+#bear-voice-pro {
+  position: relative !important;
+  z-index: 1 !important;
+  float: none !important;
+  flex: 0 1 auto !important;
+  width: min(100%, 1040px) !important;
+  max-width: 1040px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+/* The companion becomes the main attraction */
+.app {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 251, 241, .94) !important;
+  border: 1px solid rgba(255, 255, 255, .95) !important;
+  border-radius: 32px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 24px 70px rgba(65, 84, 56, .14),
+    0 5px 18px rgba(106, 87, 107, .07),
+    inset 0 0 0 5px rgba(255, 255, 255, .25) !important;
+}
+
+/* A soft garden-inspired header */
+.app header {
+  background:
+    linear-gradient(120deg,
+      #dce8d1, #f5e9df 55%, #e8dcef) !important;
+  border-bottom: 1px solid rgba(129, 151, 114, .2) !important;
+  color: var(--fw-forest) !important;
+  padding: 20px !important;
+}
+
+/* Improve headings without changing their wording */
+.app h1,
+.app h2,
+#companion-addons h2,
+#companion-addons h3,
+#bear-voice-pro h2,
+#bear-voice-pro h3 {
+  color: var(--fw-forest) !important;
+  line-height: 1.35;
+}
+
+/* Make the teddy image blend with its surroundings */
+.app img {
+  mix-blend-mode: multiply;
+}
+
+/* Make the teddy's existing display feel intentional */
+#teddy-container,
+.teddy-container {
+  background:
+    radial-gradient(ellipse,
+      rgba(222, 232, 207, .78),
+      rgba(246, 231, 232, .48) 65%,
+      transparent 100%) !important;
+  border: 1px solid rgba(255, 255, 255, .8);
+  border-radius: 30px !important;
+}
+
+/* Calm, spacious chat area */
+#chat {
+  background:
+    linear-gradient(180deg,
+      rgba(255, 253, 246, .98),
+      rgba(242, 244, 232, .97)) !important;
+  border: 1px solid #dce4d1 !important;
+  border-radius: 24px !important;
+  padding: 20px !important;
+  box-shadow: inset 0 2px 12px rgba(95, 115, 79, .04);
+}
+
+/* Conversation bubbles */
+#chat .user,
+#chat .user-message,
+#chat .message.user {
+  background: linear-gradient(135deg,
+    #dce8d1, #cbdcbe) !important;
+  color: #354a34 !important;
+  border: 1px solid rgba(119, 148, 101, .22) !important;
+  border-radius: 20px 20px 6px 20px !important;
+  padding: 12px 16px;
+}
+
+#chat .assistant,
+#chat .bot,
+#chat .bot-message,
+#chat .message.assistant,
+#chat .message.bot {
+  background: linear-gradient(135deg,
+    #fffdf7, #f6eaf0) !important;
+  color: #514b4d !important;
+  border: 1px solid rgba(218, 192, 202, .48) !important;
+  border-radius: 20px 20px 20px 6px !important;
+  padding: 12px 16px;
+}
+
+/* Input area feels like a little writing desk */
+.app input,
+.app textarea,
+.app select,
+#companion-addons input,
+#companion-addons textarea,
+#companion-addons select,
+#bear-voice-pro input,
+#bear-voice-pro textarea,
+#bear-voice-pro select {
+  background: #fffdf7 !important;
+  color: #4b5143 !important;
+  border: 1px solid #d7dfc9 !important;
+  border-radius: 15px !important;
+  padding: 11px 13px;
+  max-width: 100%;
+}
+
+.app input:focus,
+.app textarea:focus,
+#companion-addons input:focus,
+#companion-addons textarea:focus {
+  outline: none;
+  border-color: #a5bb91 !important;
+  box-shadow: 0 0 0 3px rgba(165, 187, 145, .18) !important;
+}
+
+/* Soft moss-green buttons */
+.app button,
+#companion-addons button,
+#bear-voice-pro button {
+  background: linear-gradient(135deg,
+    #91a981, #718d65) !important;
+  color: #fffdf6 !important;
+  border: 1px solid rgba(255, 255, 255, .65) !important;
+  border-radius: 15px !important;
+  box-shadow: 0 4px 12px rgba(69, 92, 59, .12);
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    filter .22s ease;
+}
+
+.app button:hover,
+#companion-addons button:hover,
+#bear-voice-pro button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 7px 16px rgba(69, 92, 59, .16);
+}
+
+/* Arrange tool areas as a coordinated garden collection */
+#companion-addons,
+#bear-voice-pro {
+  display: block;
+  padding: clamp(18px, 3vw, 32px) !important;
+  background:
+    radial-gradient(ellipse at top right,
+      rgba(231, 196, 209, .2), transparent 45%),
+    linear-gradient(145deg,
+      rgba(255, 252, 243, .97),
+      rgba(238, 243, 230, .97)) !important;
+  border: 1px solid rgba(255, 255, 255, .95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 15px 42px var(--fw-shadow) !important;
+  color: var(--fw-forest);
+}
+
+/* Decorative dividers */
+#companion-addons h2::after,
+#companion-addons h3::after,
+#bear-voice-pro h2::after,
+#bear-voice-pro h3::after {
+  content: "  ✿";
+  color: #c28fa8;
+}
+
+/* Soft styling for individual tools */
+#companion-addons section,
+#companion-addons article,
+#companion-addons .card,
+#companion-addons .panel,
+#bear-voice-pro section,
+#bear-voice-pro article,
+#bear-voice-pro .card,
+#bear-voice-pro .panel {
+  background-color: rgba(255, 253, 246, .72);
+  border: 1px solid rgba(163, 184, 144, .35) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 5px 18px rgba(73, 94, 64, .05);
+}
+
+/* Mood and choice buttons feel like garden stones */
+#companion-addons button {
+  min-height: 42px;
+}
+
+/* Preserve the existing opening screen above all these changes */
+#teddy-welcome {
+  z-index: 9999 !important;
+}
+
+/* Smaller screens */
+@media (max-width: 700px) {
+  body {
+    padding: 24px 12px 42px !important;
+    gap: 18px !important;
+  }
+
+  .app,
+  #companion-addons,
+  #bear-voice-pro {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 23px !important;
+  }
+
+  #chat {
+    padding: 13px !important;
+  }
+
+  #companion-addons,
+  #bear-voice-pro {
+    padding: 16px !important;
+  }
+
+  body::before {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+
+  .app button,
+  #companion-addons button,
+  #bear-voice-pro button {
+    transition: none !important;
+  }
+}
+</style>
