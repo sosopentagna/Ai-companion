@@ -2393,6 +2393,21 @@ button:hover {
   color: #354735 !important;
 }
 
+/* SOFT ENCHANTED TEDDY GLOW */
+#robot-face {
+  filter: drop-shadow(0 0 12px rgba(218, 190, 120, 0.45));
+  animation: teddy-float 4s ease-in-out infinite;
+}
+
+@keyframes teddy-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
 </style>
 
 </body>
