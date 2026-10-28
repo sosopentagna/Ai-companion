@@ -2500,6 +2500,83 @@ hr {
 }
 
 </style>
+<!-- ENCHANTED TEDDY WELCOME SCREEN -->
+<div id="teddy-welcome" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:linear-gradient(135deg,#f8f4e8,#e3eddf,#f9e8ee);
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  overflow-y:auto;
+  font-family:Georgia,serif;
+">
+  <div style="
+    background:#fffdf5;
+    border:2px solid #d6c49a;
+    border-radius:28px;
+    padding:30px;
+    width:100%;
+    max-width:430px;
+    text-align:center;
+    box-shadow:0 10px 35px #65745a25;
+  ">
+    <div style="font-size:42px;">🌷 ✨ 🧸 ✨ 🌷</div>
+    <h1 style="color:#687c60;">Welcome to Your Little Garden</h1>
+    <p style="color:#786f60;">Let's get to know you before your teddy welcomes you in.</p>
 
+    <form id="teddy-profile-form">
+      <input name="firstName" placeholder="First name" required
+        style="width:100%;padding:13px;margin:7px 0;border:1px solid #c9d3bd;border-radius:12px;box-sizing:border-box;">
+      <input name="lastName" placeholder="Last name"
+        style="width:100%;padding:13px;margin:7px 0;border:1px solid #c9d3bd;border-radius:12px;box-sizing:border-box;">
+      <input name="nickname" placeholder="What should your teddy call you?"
+        style="width:100%;padding:13px;margin:7px 0;border:1px solid #c9d3bd;border-radius:12px;box-sizing:border-box;">
+      <input name="age" type="number" min="1" max="120" placeholder="Age"
+        style="width:100%;padding:13px;margin:7px 0;border:1px solid #c9d3bd;border-radius:12px;box-sizing:border-box;">
+      <textarea name="about" placeholder="Anything you'd like your teddy to know? (optional)"
+        style="width:100%;padding:13px;margin:7px 0;border:1px solid #c9d3bd;border-radius:12px;box-sizing:border-box;min-height:80px;resize:vertical;"></textarea>
+      <button type="submit" style="
+        width:100%;padding:15px;margin-top:12px;
+        background:#819879;color:white;border:0;
+        border-radius:15px;font-size:16px;cursor:pointer;
+      ">Enter the Garden ✨</button>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  const welcome = document.getElementById("teddy-welcome");
+  const profileForm = document.getElementById("teddy-profile-form");
+
+  if (!welcome || !profileForm) return;
+
+  const savedProfile = localStorage.getItem("teddyGardenProfile");
+
+  if (!savedProfile) {
+    welcome.style.display = "flex";
+  }
+
+  profileForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(profileForm);
+    const profile = {
+      firstName: formData.get("firstName").trim(),
+      lastName: formData.get("lastName").trim(),
+      nickname: formData.get("nickname").trim(),
+      age: formData.get("age"),
+      about: formData.get("about").trim()
+    };
+
+    localStorage.setItem("teddyGardenProfile", JSON.stringify(profile));
+    welcome.style.display = "none";
+  });
+})();
+</script>
+<!-- END ENCHANTED TEDDY WELCOME SCREEN -->
 </body>
 </html>
