@@ -2408,6 +2408,43 @@ button:hover {
   }
 }
 
+/* FAIRY GARDEN SPARKLE DETAILS */
+#robot-face {
+  position: relative;
+}
+
+#robot-face::before,
+#robot-face::after {
+  content: "✦";
+  position: absolute;
+  color: #c6a65d;
+  font-size: 28px;
+  pointer-events: none;
+  animation: sparkle-twinkle 2.5s ease-in-out infinite;
+}
+
+#robot-face::before {
+  top: 10%;
+  left: -12px;
+}
+
+#robot-face::after {
+  right: -12px;
+  bottom: 18%;
+  animation-delay: 1.2s;
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(25deg);
+  }
+}
+
 </style>
 
 </body>
